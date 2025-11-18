@@ -1,0 +1,14 @@
+/*=============== VARIABLES CSS ===============*/
+:root {
+  /*========== Couleurs ==========*/
+  --primary: #DD8E56;
+  --primary-dark: #B9622F;
+  --dark: #483B2D;
+  --light: #F8F3ED;
+  --white: #FFFFFF;
+  --gray: #968271;
+  --text: #5f5347;
+  --body: var(--white);
+  --container: var(--white);
+  --shadow: 0 10px 20px #483b2d2b;
+}

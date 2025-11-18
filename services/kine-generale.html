@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kinésithérapie Générale | KineFlagey — Ixelles</title>
+    <meta name="description" content="Prise en charge en kinésithérapie générale à Ixelles (Flagey) pour douleurs musculo-squelettiques, rééducation post-opératoire et traumatologique.">
+
+    <!-- Copiez tous les liens de l'en-tête de index.html -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/variables.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="icon" href="/assets/images/favicon-KF.png" type="image/png">
+</head>
+<body>
+
+    <!-- ==================== HEADER (copié de index.html) ==================== -->
+    <div id="header-placeholder"></div>
+
+    <main class="main">
+        <!-- ==================== BREADCRUMB ==================== -->
+        <section class="breadcrumb-section">
+            <div class="container">
+                <ul class="breadcrumb">
+                    <li><a href="/index.html">Accueil</a></li>
+                    <li><a href="/index.html#services">Services</a></li>
+                    <li>Kinésithérapie Générale</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ==================== SERVICE HERO ==================== -->
+        <section class="section service-hero">
+            <div class="service-hero__container container grid">
+                <div class="service-hero__data">
+                    <span class="service-hero__pretitle">Domaines d'intervention</span>
+                    <h1 class="service-hero__title"><i class="fa-solid fa-user-doctor"></i> Kinésithérapie Générale</h1>
+                    <p class="service-hero__description">
+                        Une approche globale et personnalisée pour traiter vos douleurs, retrouver votre mobilité et améliorer votre qualité de vie au quotidien.
+                    </p>
+                </div>
+                <div class="service-hero__image">
+                    <img src="/assets/images/cabinet-1.jpg" alt="Illustration de la kinésithérapie générale">
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SERVICE CONTENT ==================== -->
+        <section class="section service-content">
+            <div class="service-content__container container grid">
+                <!-- Colonne de gauche : Description -->
+                <div class="service-content__main">
+                    <h2>Description détaillée</h2>
+                    <p>La kinésithérapie générale est le pilier de notre pratique. Elle s'adresse à tous, sans limite d'âge, et prend en charge un large éventail de pathologies musculo-squelettiques. Que vous souffriez de douleurs lombaires (lombalgie), de tensions cervicales (cervicalgie), ou que vous soyez en phase de rééducation après une opération ou un traumatisme (fracture, entorse), nous mettons en place un plan de traitement sur mesure.</p>
+                    <p>Chaque prise en charge débute par un bilan complet et des tests cliniques pour identifier précisément l'origine de votre problème. Sur base de ce diagnostic, nous élaborons un plan de rééducation combinant des techniques manuelles et des exercices actifs pour vous aider à atteindre vos objectifs.</p>
+
+                    <h3>Techniques associées</h3>
+                    <ul>
+                        <li><i class="fa-solid fa-check"></i> Thérapie manuelle</li>
+                        <li><i class="fa-solid fa-check"></i> Crochetage</li>
+                        <li><i class="fa-solid fa-check"></i> K-Taping</li>
+                    </ul>
+                </div>
+
+                <!-- Colonne de droite : Praticiens et Équipement -->
+                <aside class="service-content__aside">
+                    <div class="practitioners-box">
+                        <h3>Nos praticiens spécialisés</h3>
+                        <div class="practitioners-list">
+                            <!-- Les praticiens seront ajoutés ici par JS -->
+                        </div>
+                        <a href="/index.html#contact" class="button">Prendre RDV</a>
+                    </div>
+
+                    <div class="equipment-box">
+                        <h3>Équipement disponible</h3>
+                        <ul>
+                            <li><i class="fa-solid fa-check"></i> Plateau technique complet (Bosu, Airex, Swiss-ball...)</li>
+                            <li><i class="fa-solid fa-check"></i> Vélos et tapis de course</li>
+                            <li><i class="fa-solid fa-check"></i> Matériel de renforcement</li>
+                        </ul>
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+        <!-- ==================== AUTRES SERVICES ==================== -->
+        <section class="section section--light">
+            <h2 class="section__title">Découvrir nos autres services</h2>
+            <div class="container">
+                <div class="swiper other-services-swiper">
+                    <div class="swiper-wrapper">
+                        <!-- Les cartes des autres services seront ajoutées ici par JS -->
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ==================== FOOTER ==================== -->
+    <div id="footer-placeholder"></div>
+    
+
+    <!-- ==================== MODALS (copié de index.html) ==================== -->
+    <div class="modal" id="booking-modal">
+        <div class="modal__content">
+            <i class="fa-solid fa-xmark modal__close" id="close-booking-modal"></i>
+            <h3 class="modal__title">Prendre un rendez-vous</h3>
+            <p class="modal__description">Choisissez une spécialité pour voir les praticiens recommandés.</p>
+            <div class="modal__options">
+                <div class="modal__option-item"><a href="#" class="modal__option" data-practitioner-ids="1,3,7">Kinésithérapie Sportive</a><a href="/index.html#services" class="modal__option-info"><i class="fa-solid fa-circle-info"></i></a></div>
+                <div class="modal__option-item"><a href="#" class="modal__option" data-practitioner-ids="2,4">Uro-gynécologie</a><a href="/index.html#services" class="modal__option-info"><i class="fa-solid fa-circle-info"></i></a></div>
+                <div class="modal__option-item"><a href="#" class="modal__option" data-practitioner-ids="1,5">Ostéopathie</a><a href="/index.html#services" class="modal__option-info"><i class="fa-solid fa-circle-info"></i></a></div>
+            </div>
+            <div id="practitioner-suggestion" class="practitioner-suggestion"></div>
+        </div>
+    </div>
+
+    <!--=============== SCROLL UP (copié de index.html) ===============-->
+    <a href="#" class="scrollup" id="scroll-up">
+        <i class="fa-solid fa-arrow-up scrollup__icon"></i>
+    </a>
+
+    <!-- ==================== JAVASCRIPT ==================== -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    
+    <!-- Scripts -->
+    <script src="/js/data.js"></script>
+    <script src="/js/navigation.js"></script>
+    <script src="/js/components.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html>
