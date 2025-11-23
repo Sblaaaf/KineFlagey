@@ -16,25 +16,15 @@
   }
 }
 
-/* Pour les écrans plus petits, on peut passer à une seule colonne */
-@media screen and (max-width: 768px) {
-    .service-details__footer {
-        grid-template-columns: 1fr;
-    }
-}
-
-
 /* Pour les grands appareils (ordinateurs portables, desktops) */
 @media screen and (min-width: 768px) {
-  .dropdown__icon {
-    display: inline-block; /* Affiche la flèche sur desktop */
-  }
   .nav {
     height: calc(4rem + 2.5rem);
     column-gap: 3rem;
   }
   .nav__toggle,
-  .nav__close {
+  .nav__close,
+  .dropdown__icon {
     display: none;
   }
   .nav__list {
@@ -65,20 +55,35 @@
       margin-left: 0;
   }
 
-  .service-details__container {
-      grid-template-columns: 400px 1fr;
-      align-items: stretch;
-      padding: 2.5rem 2.5rem 2.5rem 0;
+  .service-details__wrapper {
+    margin-top: 3rem;
   }
+
+  .service-details__container.active {
+    display: flex; /* Utiliser flexbox sur les grands écrans */
+    flex-direction: row;
+    gap: 2.5rem;
+    align-items: stretch; /* Pour que les enfants aient la même hauteur */
+    padding: 2.5rem 3rem;
+  }
+
   .service-details__image {
-      display: block;
-      min-width: 400px;
-      max-width: 420px;
-      margin-top: -2rem;
-      margin-left: -2rem;
-      margin-bottom: -2rem;
-      margin-right: 0;
-      aspect-ratio: 3 / 4;
+    flex-shrink: 0; /* Empêche l'image de se réduire */
+    width: 360px; /* Largeur fixe pour l'image */
+    height: auto; /* La hauteur s'adapte au ratio */
+    aspect-ratio: 3 / 4; /* Ratio plus vertical pour desktop */
+  }
+
+  .service-details__nav {
+    left: 50%;
+    transform: translate(-50%);
+    bottom: -1.2rem;
+  }
+
+  .service-details__footer {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
   }
 
   .team__container {

@@ -447,22 +447,38 @@ img {
 
 .service-details__wrapper {
     position: relative; /* Contexte pour les flèches de navigation */
-    margin-bottom: 4rem;
+    display: grid;
+    grid-template-columns: 1fr; /* Assure que les enfants prennent toute la largeur */
+    margin-top: 2rem;
 }
 
 .service-details__container {
+    /* Caché par défaut */
+    display: none;
+    /* Superposition pour les transitions */
+    grid-area: 1 / 1 / 2 / 2;
+
     background-color: var(--white);
     border-radius: 2rem;
-    gap: 2rem;
-    display: none;
-    position: relative;
     box-shadow: 0 20px 50px rgba(33, 54, 106, 0.1);
-    margin-top: 4rem;
+    overflow: hidden; /* Empêche les enfants de déborder de manière inattendue */
 }
+
 .service-details__container.active {
-    display: grid; /* Affiché seulement si la classe .active est présente */
+    /* Disposition pour mobile */
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
     padding: 2rem;
 }
+
+.service-details__content {
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+    justify-content: space-between; /* Espace le main et le footer */
+}
+
 .service-details__badge {
     background-color: var(--primary-light);
     color: var(--primary-dark);
@@ -470,55 +486,53 @@ img {
     border-radius: 1rem;
     font-size: .8rem;
     font-weight: 600;
-    display: inline-block;
-    margin-bottom: 1rem;
-}
-.service-details__footer {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 1rem;
-    align-items: center;
-    margin-top: 1.5rem;
-}
-.service-details__title { font-size: 1.75rem; margin-bottom: .25rem; }
-.service-details__subtitle { color: var(--gray); margin-bottom: 1rem; }
-.service-details__description { margin-bottom: 1.5rem; }
-.service-details__list { display: grid; gap: .5rem; margin-bottom: 2rem; }
-.service-details__list i { color: #3d7c0d; margin-right: .5rem}
-.service-details__list li { position: relative; }
-.service-details__practitioners h4 { font-size: 1rem; color: var(--gray); margin-bottom: .75rem; }
-.practitioners__list { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 2rem; }
-.practitioners__list .team__img { width: 40px; height: 40px; border-width: 2px; }
-.service-details__actions { display: flex; gap: 1rem; }
-.service-details__image {
-    display: none; /* Caché sur mobile, affiché via media query */
-    border-radius: 2rem;
-    overflow: hidden;
-    box-shadow: 0 15px 30px rgba(33, 54, 106, 0.15);
-    position: relative;
-    aspect-ratio: 16 / 9;
+    align-self: flex-start;
 }
 
+.service-details__title { font-size: 1.75rem; }
+.service-details__subtitle { color: var(--gray); font-size: 1rem; }
+.service-details__description { font-size: 1rem; line-height: 1.6; }
+.service-details__list { display: grid; gap: .75rem; font-size: 1rem; }
+.service-details__list i { color: #1a930f; margin-right: .5rem; }
+
+.service-details__footer {
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--light);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.service-details__practitioners h4 { font-size: 1rem; color: var(--gray);  }
+.practitioners__list { display: flex; flex-wrap: wrap; gap: .5rem; }
+.practitioners__list .team__img-mini {
+    border-radius: 50%;
+    margin: .5rem auto;
+    width: 40px;
+    height: 40px;
+    border-width: 2px;
+    border: 1px solid var(--gray);
+}
+.service-details__actions { display: flex; gap: 1rem; }
+
+.service-details__image {
+    position: relative;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    aspect-ratio: 16 / 9; /* Ratio pour la vue mobile */
+}
 .service-details__image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
-.service-details__icon-badge {
+
+.service-details__nav {
     position: absolute;
-    top: 1rem;
-    left: 1rem;
-    width: 5rem;
-    height: 5rem;
-    background-color: rgba(255, 228, 198, 0.7);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    padding: 0.5rem;
-    border-radius: 1rem;
-    z-index: 2;
-    color: var(--primary);
+    display: flex;
+    gap: .5rem;
+    z-index: 5;
 }
-.service-details__nav { position: absolute; bottom: 1rem; right: 1rem; display: flex; gap: .5rem; z-index: 5; }
 .nav-arrow { background-color: var(--white); border: 1px solid #e0d9d1; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; transition: .3s; }
 .nav-arrow:hover { background-color: var(--primary); color: var(--white); }
 
