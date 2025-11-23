@@ -3,7 +3,7 @@ const teamMembers = {
     1: {
         name: 'Gilles Piraux',
         specialties: 'Kiné du sport, Ostéopathe',
-        photo: '/assets/img/GILLES_blob.png',
+        photo: '/assets/blob/GILLES.png',
         description: 'Prise en charge globale et centrée sur la rééducation active pour un retour rapide et durable à vos activités.',
         contact: {
             email: 'g.piraux@kineflagey.be',
@@ -14,7 +14,7 @@ const teamMembers = {
     2: {
         name: 'Maria Kalala Beltran',
         specialties: 'Uro-gynécologie',
-        photo: '/assets/img/Maria_blob.png',
+        photo: '/assets/blob/Maria.png',
         description: 'Experte en rééducation périnéale pour les femmes à toutes les étapes de leur vie.',
         contact: {
             email: 'm.kalala@kineflagey.be',
@@ -26,7 +26,7 @@ const teamMembers = {
     3: {
         name: 'Olivier Van Roy',
         specialties: 'Kiné générale, périnéale, McKenzie, Pilates',
-        photo: '/assets/img/Olivier_blob.png',
+        photo: '/assets/blob/Olivier.png',
         description: 'Prise en charge globale et centrée sur la rééducation active ; rééducation post-natale et prévention.',
         contact: {
             email: 'o.vanroy@kineflagey.be',
@@ -37,7 +37,7 @@ const teamMembers = {
     4: {
         name: 'Fanny Garo',
         specialties: 'Uro-gynécologie, Kiné générale',
-        photo: '/assets/img/Fanny_blob.png',
+        photo: '/assets/blob/Fanny.png',
         description: 'Fanny est spécialisée dans la santé de la femme et la rééducation périnéale.',
         contact: {
             email: 'f.garo@kineflagey.be',
@@ -48,7 +48,7 @@ const teamMembers = {
     5: {
         name: 'Simon Le Clef',
         specialties: 'Ostéopathe',
-        photo: '/assets/img/Simon_blob.png',
+        photo: '/assets/blob/Simon.png',
         description: 'Approche globale pour traiter les troubles musculo-squelettiques, viscéraux et crâniens.',
         contact: {
             email: 's.leclef@kineflagey.be',
@@ -59,7 +59,7 @@ const teamMembers = {
     6: {
         name: 'Mathilde Escoyez',
         specialties: 'Kiné générale, Thérapie manuelle',
-        photo: '/assets/img/Mathilde_blob.png',
+        photo: '/assets/blob/Mathilde.png',
         description: 'Mathilde prend en charge les pathologies orthopédiques et rhumatologiques.',
         contact: {
             email: 'm.escoyez@kineflagey.be',
@@ -70,7 +70,7 @@ const teamMembers = {
     7: {
         name: 'Thomas Bastard',
         specialties: 'Kiné du sport, Analyse de la course',
-        photo: '/assets/img/Thomas_blob.png',
+        photo: '/assets/blob/Thomas.png',
         description: 'Spécialiste de la course à pied, il analyse votre foulée pour optimiser vos performances et prévenir les blessures.',
         contact: {
             email: 't.bastard@kineflagey.be',
@@ -81,7 +81,7 @@ const teamMembers = {
     8: {
         name: 'Marie Inès Koninckx',
         specialties: 'Kiné générale',
-        photo: '/assets/img/Marie-Ines_blob.png',
+        photo: '/assets/blob/Marie-Ines.png',
         description: 'Prise en charge globale et personnalisée pour tous types de pathologies.',
         contact: {
             email: 'mi.koninckx@kineflagey.be',
@@ -92,7 +92,7 @@ const teamMembers = {
     9: {
         name: 'Anne-Sophie Libert',
         specialties: 'Kiné générale',
-        photo: '/assets/img/Anne-Sophie_blob.png',
+        photo: '/assets/blob/Anne-Sophie.png',
         description: 'Anne-Sophie vous accompagne dans votre rééducation avec écoute et bienveillance.',
         contact: {
             email: 'as.libert@kineflagey.be',

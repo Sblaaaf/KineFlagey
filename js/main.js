@@ -131,6 +131,42 @@ const initTechniquesTabs = () => {
     });
 };
 
+/*=============== COMPLEMENTARY SERVICES ACCORDION & IMAGE CHANGER ===============*/
+const initComplementaryServicesTabs = () => {
+    const section = document.getElementById('complementary-services');
+    if (!section) return;
+
+    const items = section.querySelectorAll('.complementary__item');
+    const mainImage = document.getElementById('complementary-main-image');
+
+    if (!mainImage || items.length === 0) return;
+
+    items.forEach(item => {
+        const header = item.querySelector('.complementary__header');
+
+        header.addEventListener('click', () => {
+            const wasOpen = item.classList.contains('is-open');
+
+            section.querySelectorAll('.complementary__item.is-open').forEach(openItem => {
+                if (openItem !== item) {
+                    openItem.classList.remove('is-open');
+                }
+            });
+
+            item.classList.toggle('is-open');
+
+            if (!wasOpen) {
+                const newImageSrc = item.dataset.image;
+                mainImage.classList.add('is-changing');
+                setTimeout(() => {
+                    mainImage.src = newImageSrc;
+                    mainImage.onload = () => mainImage.classList.remove('is-changing');
+                }, 200);
+            }
+        });
+    });
+};
+
 document.addEventListener("DOMContentLoaded", function() {
     // Fonction pour charger un partial (header, footer)
     const loadPartial = (selector, url) => {
@@ -156,6 +192,7 @@ document.addEventListener("DOMContentLoaded", function() {
         initCustomSelect();
         initServicesTabs();
         initTechniquesTabs();
+        initComplementaryServicesTabs();
         initContactFormAnimation();
     }).catch(error => console.error('Error loading partials:', error));
 });

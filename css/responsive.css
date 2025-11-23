@@ -94,6 +94,15 @@
     grid-template-columns: 1.2fr 1fr;
   }
 
+  .complementary__wrapper {
+    grid-template-columns: 1fr 1.2fr; /* Image à gauche, accordéon à droite */
+  }
+
+  .complementary__image-display {
+    display: block; /* Affiché sur desktop */
+    position: sticky;
+    top: calc(4rem + 2rem); /* Hauteur header scroll + marge */
+  }
   .techniques__content-cards {
     grid-template-columns: 1fr 1fr;
   }
@@ -130,7 +139,7 @@
     padding: 4rem 0;
   }
   .team__container {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
   .footer__container {
       grid-template-columns: .5fr repeat(3, 1fr);
