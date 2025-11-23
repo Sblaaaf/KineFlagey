@@ -16,6 +16,14 @@
   }
 }
 
+/* Pour les écrans plus petits, on peut passer à une seule colonne */
+@media screen and (max-width: 768px) {
+    .service-details__footer {
+        grid-template-columns: 1fr;
+    }
+}
+
+
 /* Pour les grands appareils (ordinateurs portables, desktops) */
 @media screen and (min-width: 768px) {
   .dropdown__icon {
@@ -48,7 +56,7 @@
   .hero__container {
     grid-template-columns: 1fr 1fr;
     align-items: center;
-    padding: 3rem 0;
+    padding: 2rem;
   }
   .hero__data {
     text-align: left;
@@ -56,9 +64,21 @@
   .hero__logo {
       margin-left: 0;
   }
-  .hero-swiper {
-      height: 350px;
-      margin-top: 0;
+
+  .service-details__container {
+      grid-template-columns: 400px 1fr;
+      align-items: stretch;
+      padding: 2.5rem 2.5rem 2.5rem 0;
+  }
+  .service-details__image {
+      display: block;
+      min-width: 400px;
+      max-width: 420px;
+      margin-top: -2rem;
+      margin-left: -2rem;
+      margin-bottom: -2rem;
+      margin-right: 0;
+      aspect-ratio: 3 / 4;
   }
 
   .team__container {
@@ -71,7 +91,7 @@
   }
 
   .contact__container {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 2fr 3fr;
       align-items: flex-start; 
   }
 
@@ -88,13 +108,13 @@
   }
 }
 
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 1200px) {
   .container {
     margin-left: auto;
     margin-right: auto;
   }
   .section {
-    padding: 6rem 0 3rem;
+    padding: 4rem 0;
   }
   .team__container {
     grid-template-columns: repeat(5, 1fr);

@@ -144,3 +144,69 @@ function initComponents() {
     }
     window.addEventListener('scroll', scrollUp);
 }
+
+/*=============== CUSTOM SELECT ===============*/
+function initCustomSelect() {
+    const customSelects = document.querySelectorAll(".custom-select");
+
+    customSelects.forEach(selElm => {
+        const select = selElm.getElementsByTagName("select")[0];
+        if (!select) return;
+
+        // Crée l'élément qui affichera la valeur sélectionnée
+        const selectedDiv = document.createElement("DIV");
+        selectedDiv.setAttribute("class", "select-selected");
+        selectedDiv.innerHTML = select.options[select.selectedIndex].innerHTML;
+        selElm.appendChild(selectedDiv);
+
+        // Crée le conteneur pour les options
+        const optionsDiv = document.createElement("DIV");
+        optionsDiv.setAttribute("class", "select-items select-hide");
+
+        // Crée et ajoute chaque option
+        Array.from(select.options).forEach((option, j) => {
+            if (option.disabled) return; // Ne pas créer d'option pour le placeholder
+            const optionDiv = document.createElement("DIV");
+            optionDiv.innerHTML = option.innerHTML;
+
+            optionDiv.addEventListener("click", function(e) {
+                // Met à jour le select original
+                select.selectedIndex = j;
+                // Met à jour l'affichage
+                selectedDiv.innerHTML = this.innerHTML;
+                selectedDiv.classList.remove("select-placeholder");
+                // Ferme la liste
+                closeAllSelects();
+            });
+            optionsDiv.appendChild(optionDiv);
+        });
+        selElm.appendChild(optionsDiv);
+
+        // Gère l'ouverture/fermeture
+        selectedDiv.addEventListener("click", function(e) {
+            e.stopPropagation();
+            closeAllSelects(this);
+            this.nextSibling.classList.toggle("select-hide");
+            this.classList.toggle("select-arrow-active");
+        });
+    });
+
+    function closeAllSelects(elmnt) {
+        const selectItems = document.getElementsByClassName("select-items");
+        const selectSelected = document.getElementsByClassName("select-selected");
+
+        for (let i = 0; i < selectSelected.length; i++) {
+            if (elmnt !== selectSelected[i]) {
+                selectSelected[i].classList.remove("select-arrow-active");
+            }
+        }
+        for (let i = 0; i < selectItems.length; i++) {
+            if (elmnt === null || (elmnt && selectItems[i].previousSibling !== elmnt)) {
+                 selectItems[i].classList.add("select-hide");
+            }
+        }
+    }
+
+    // Ferme les listes si on clique ailleurs
+    document.addEventListener("click", closeAllSelects);
+}
