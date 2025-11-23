@@ -479,6 +479,12 @@ img {
     justify-content: space-between; /* Espace le main et le footer */
 }
 
+.service-details__main {
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+}
+
 .service-details__badge {
     background-color: var(--primary-light);
     color: var(--primary-dark);
@@ -489,8 +495,8 @@ img {
     align-self: flex-start;
 }
 
-.service-details__title { font-size: 1.75rem; }
-.service-details__subtitle { color: var(--gray); font-size: 1rem; }
+.service-details__title { font-size: 1.6rem; font-weight: 800; color: var(--primary-dark);}
+.service-details__subtitle { margin-top:-.75rem; color:var(--gray); font-size: 1rem; }
 .service-details__description { font-size: 1rem; line-height: 1.6; }
 .service-details__list { display: grid; gap: .75rem; font-size: 1rem; }
 .service-details__list i { color: #1a930f; margin-right: .5rem; }
