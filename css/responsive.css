@@ -90,6 +90,14 @@
     grid-template-columns: repeat(4, 1fr);
   }
 
+  .techniques__wrapper {
+    grid-template-columns: 1.2fr 1fr;
+  }
+
+  .techniques__content-cards {
+    grid-template-columns: 1fr 1fr;
+  }
+
   .cabinet__container {
       grid-template-columns: 1fr 1.5fr;
       align-items: center;
