@@ -2,15 +2,17 @@
 function initComponents() {
     /*=============== GESTION DES MODALS (POPUPS) ===============*/
     const bookingModal = document.getElementById('booking-modal');
-    const teamModal = document.getElementById('team-modal');
-    const openBookingModalBtn = document.getElementById('open-booking-modal');
+    const openBookingModalBtns = document.querySelectorAll('.open-booking-modal');
 
-    if (openBookingModalBtn) {
-        openBookingModalBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            bookingModal.classList.add('is-open');
+    if (bookingModal && openBookingModalBtns.length > 0) {
+        openBookingModalBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                bookingModal.classList.add('is-open');
+            });
         });
     }
+
     document.querySelectorAll('.modal').forEach(modal => {
         modal.addEventListener('click', (e) => {
             if (e.target === modal || e.target.classList.contains('modal__close')) {
@@ -21,31 +23,67 @@ function initComponents() {
 
     /*=============== FILTRAGE DE L'ÉQUIPE & MODAL DÉTAILS ===============*/
     const teamCards = document.querySelectorAll('.team__card');
+    const practitionerLinks = document.querySelectorAll('.team__card--link');
+    const teamModal = document.getElementById('team-modal');
     const teamModalContent = document.getElementById('team-modal-content');
     const modalPrevBtn = document.getElementById('modal-prev');
     const modalNextBtn = document.getElementById('modal-next');
     let currentPractitionerIndex = 0;
     let visiblePractitioners = [];
 
-    const showPractitionerModal = (memberId) => {
+    const showPractitionerModal = (memberId, showNav = true) => {
         const memberData = teamMembers[memberId];
         if (memberData && teamModalContent) {
+            // Fonctions utilitaires pour générer les listes de badges
+            const createBadges = (items) => {
+                if (!items || items.length === 0) return '';
+                return items.map(item => `<span class="practitioner-modal__badge">${item}</span>`).join('');
+            };
+
+            const languages = memberData.languages ? memberData.languages.join(', ') : '';
+
             teamModalContent.innerHTML = `
                 <i class="fa-solid fa-xmark modal__close"></i>
-                <img src="${memberData.photo}" alt="Photo de ${memberData.name}" class="team__img-modal">
-                <h3 class="modal__title">${memberData.name}</h3>
-                <p class="team__specialty">${memberData.specialties}</p>
-                <p>${memberData.description}</p>
-                <div class="team__contact-modal">
-                    <h4>Contact & RDV :</h4>
-                    <p><strong>Email:</strong> <a href="mailto:${memberData.contact.email}">${memberData.contact.email}</a></p>
-                    <p><strong>Téléphone:</strong> <a href="tel:${memberData.contact.phone}">${memberData.contact.phone}</a></p>
-                    <a href="${memberData.contact.rosaLink}" target="_blank" class="button">Prendre RDV via Rosa.be</a>
+                <div class="practitioner-modal__header">
+                    <img src="${memberData.photo}" alt="Photo de ${memberData.name}" class="practitioner-modal__photo">
+                    <div class="practitioner-modal__header-info">
+                        <h3 class="practitioner-modal__name">${memberData.name}</h3>
+                        <div class="practitioner-modal__meta">
+                            ${memberData.inami ? `<span><i class="fa-solid fa-id-card"></i> INAMI : ${memberData.inami}</span>` : ''}
+                            ${memberData.convention ? `<span><i class="fa-solid fa-file-signature"></i> ${memberData.convention}</span>` : ''}
+                            ${languages ? `<span><i class="fa-solid fa-language"></i> ${languages}</span>` : ''}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="practitioner-modal__body">
+                    ${memberData.specialties && memberData.specialties.length > 0 ? `
+                    <div class="practitioner-modal__section">
+                        <h4 class="practitioner-modal__section-title">Spécialités</h4>
+                        <div class="practitioner-modal__badges">${createBadges(memberData.specialties)}</div>
+                    </div>` : ''}
+
+                    ${memberData.techniques && memberData.techniques.length > 0 ? `
+                    <div class="practitioner-modal__section">
+                        <h4 class="practitioner-modal__section-title">Techniques</h4>
+                        <div class="practitioner-modal__badges">${createBadges(memberData.techniques)}</div>
+                    </div>` : ''}
+
+                    ${memberData.description ? `<p class="practitioner-modal__description">${memberData.description}</p>` : ''}
+                </div>
+
+                <div class="practitioner-modal__footer">
+                    <h4 class="practitioner-modal__section-title">Contact &amp; RDV</h4>
+                    <div class="practitioner-modal__actions">
+                        <a href="tel:${memberData.contact.phone}" class="button outline-secondary"><i class="fa-solid fa-phone"></i> ${memberData.contact.phone}</a>
+                        <a href="${memberData.contact.rosaLink}" target="_blank" class="button"><i class="fa-solid fa-calendar-check"></i> Prendre rendez-vous</a>
+                        <a href="${memberData.contact.rosaLink}" target="_blank" class="button button--rosa"><i class="fa-solid fa-notes-medical"></i> Fiche Rosa.be</a>
+                    </div>
                 </div>
             `;
             teamModal.classList.add('is-open');
-            modalPrevBtn.style.display = 'block';
-            modalNextBtn.style.display = 'block';
+            modalPrevBtn.style.display = showNav ? 'block' : 'none';
+            modalNextBtn.style.display = showNav ? 'block' : 'none';
         }
     }
 
@@ -60,20 +98,61 @@ function initComponents() {
             });
         });
 
+        // Ajout pour les liens des praticiens dans la section services
+        practitionerLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const memberId = link.getAttribute('data-member-id');
+                // On n'active pas la navigation prev/next depuis cette vue
+                showPractitionerModal(memberId, false);
+            });
+        });
+
+        const tabs = document.querySelectorAll('.team__tab');
+        const filtersContents = document.querySelectorAll('.team__filters');
         const filterButtons = document.querySelectorAll('.team__filter');
-        if (filterButtons.length > 0) {
-            filterButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    document.querySelector('.team__filter.active').classList.remove('active');
-                    button.classList.add('active');
-                    const filter = button.getAttribute('data-filter');
-                    teamCards.forEach(card => {
-                        const specialties = card.getAttribute('data-specialty');
-                        card.style.display = (filter === 'all' || specialties.includes(filter)) ? 'block' : 'none';
-                    });
+        const noResultsMessage = document.querySelector('.team__no-results');
+
+        // Gère le clic sur les onglets (Spécialité / Technique)
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                const targetTab = tab.dataset.tab;
+
+                filtersContents.forEach(content => {
+                    content.classList.toggle('active', content.dataset.tabContent === targetTab);
                 });
             });
-        }
+        });
+
+        // Gère le clic sur les boutons de filtre et le filtrage des cartes
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // 1. Gérer l'état actif du bouton de filtre
+                const group = button.closest('.team__filters');
+                if (group) {
+                    group.querySelector('.team__filter.active').classList.remove('active');
+                }
+                button.classList.add('active');
+
+                // 2. Filtrer les cartes
+                const filter = button.dataset.filter;
+                let visibleCount = 0;
+                teamCards.forEach(card => {
+                    const specialties = card.dataset.specialty;
+                    const isVisible = (filter === 'all' || specialties.includes(filter));
+                    card.style.display = isVisible ? 'block' : 'none';
+                    if (isVisible) {
+                        visibleCount++;
+                    }
+                });
+
+                // 3. Afficher ou cacher le message "aucun résultat"
+                noResultsMessage.style.display = visibleCount === 0 ? 'block' : 'none';
+            });
+        });
     }
 
     if(modalNextBtn) modalNextBtn.addEventListener('click', () => {
@@ -87,7 +166,7 @@ function initComponents() {
     });
 
     /*=============== PARCOURS DE PRISE DE RDV GUIDÉ ===============*/
-    const bookingOptions = document.querySelectorAll('.modal__option');
+    /* const bookingOptions = document.querySelectorAll('.modal__option');
     const suggestionContainer = document.getElementById('practitioner-suggestion');
     if (bookingOptions.length > 0) {
         bookingOptions.forEach(option => {
@@ -107,26 +186,239 @@ function initComponents() {
                 });
             });
         });
+    } */
+
+    const bookingModalContent = document.querySelector('#booking-modal .modal__content');
+
+    // Map pour lier les spécialités aux icônes et aux ancres de la page
+    const specialtyDetails = {
+        'Kinésithérapie Générale': { icon: 'generale', anchor: '#services' },
+        'Kinésithérapie Sportive': { icon: 'sport', anchor: '#service-kine-sportive' },
+        'Ostéopathie D.O.': { icon: 'osteo', anchor: '#osteopathie' },
+        'Uro-gynécologie': { icon: 'perinatale', anchor: '#service-perineale' },
+        'périnéale': { icon: 'perinatale', anchor: '#service-perineale' },
+        'ATM': { icon: 'atm', anchor: '#service-maxillo-faciale' },
+        'Thérapie manuelle': { icon: 'generale', anchor: '#techniques' },
+        'Analyse de la course': { icon: 'sport', anchor: '#techniques' },
+        // Ajoutez d'autres mappages si nécessaire
+    };
+
+    const renderSpecialties = () => {
+        const allSpecialties = [...new Set(Object.values(teamMembers).flatMap(m => m.specialties || []))];
+        let content = `
+            <i class="fa-solid fa-xmark modal__close"></i>
+            <div class="modal__header-steps">
+                <span class="modal__step active" data-step="1">Spécialité</span>
+                <span class="modal__step-separator">&gt;</span>
+                <span class="modal__step" data-step="2">Praticien</span>
+            </div>
+            <h3 class="modal__title">Quel est le motif de votre consultation ?</h3>
+            <p class="modal__description">Sélectionnez une spécialité pour trouver le praticien adapté.</p>
+            <div class="modal__options" id="specialty-options">`;
+
+        allSpecialties.forEach(specialty => {
+            const details = specialtyDetails[specialty] || { icon: 'generale', anchor: '#services' };
+            content += `
+                <div class="modal__option-item">
+                    <a href="#" class="modal__option" data-specialty="${specialty}">
+                        <svg class="modal__option-icon"><use href="/assets/svg/sprite.svg#${details.icon}"></use></svg>
+                        <span>${specialty}</span>
+                    </a>
+                    <a href="${details.anchor}" class="modal__option-info" data-close-modal="true"><i class="fa-solid fa-circle-info"></i></a>
+                </div>`;
+        });
+        content += `</div>`;
+        bookingModalContent.innerHTML = content;
+    };
+
+    const renderPractitioners = (specialty) => {
+        const practitioners = Object.values(teamMembers).filter(m => m.specialties && m.specialties.map(s => s.trim()).includes(specialty.trim()));
+        let content = `
+            <i class="fa-solid fa-xmark modal__close"></i>
+            <div class="modal__header-steps">
+                <a href="#" class="modal__step" id="back-to-specialties-step" data-step="1">Spécialité</a>
+                <span class="modal__step-separator">&gt;</span>
+                <span class="modal__step active" data-step="2">Praticien</span>
+            </div>
+            <a href="#" class="modal__back-link" id="back-to-specialties"><i class="fa-solid fa-arrow-left"></i> Retour aux spécialités</a>
+            <h3 class="modal__title">Praticiens recommandés pour "${specialty}"</h3>
+            <div id="practitioner-suggestion">`;
+
+        practitioners.forEach(member => {
+            content += `
+                <div class="practitioner-suggestion__item">
+                    <div class="practitioner-suggestion__info">
+                        <strong>${member.name}</strong>
+                    </div>
+                    <div class="practitioner-suggestion__actions">
+                        <a href="${member.contact.rosaLink}" target="_blank" class="button button--small"><i class="fa-solid fa-calendar-check"></i> RDV</a>
+                        <a href="tel:${member.contact.phone}" class="button button--small outline-secondary"><i class="fa-solid fa-phone"></i> Appeler</a>
+                        <a href="${member.contact.rosaLink}" target="_blank" class="button button--small button--rosa"><i class="fa-solid fa-notes-medical"></i> Fiche Rosa</a>
+                    </div>
+                </div>`;
+        });
+        content += `</div>`;
+        bookingModalContent.innerHTML = content;
+    };
+
+    const resetBookingModal = () => {
+        if (bookingModalContent) {
+            renderSpecialties();
+        }
+    };
+
+    if (bookingModalContent) {
+        // Initial render
+        renderSpecialties();
+
+        // Event delegation for dynamic content
+        bookingModalContent.addEventListener('click', (e) => {
+            e.preventDefault();
+            const target = e.target.closest('a');
+            if (!target) return;
+
+            if (target.matches('[data-specialty]')) {
+                const specialty = target.dataset.specialty;
+                renderPractitioners(specialty);
+            } else if (target.id === 'back-to-specialties') {
+                renderSpecialties();
+            }
+        });
+    }
+    
+    // Reset modal on close
+    if (bookingModal) {
+        const observer = new MutationObserver((mutations) => {
+            if (!bookingModal.classList.contains('is-open') && mutations[0].oldValue.includes('is-open')) {
+                resetBookingModal();
+            }
+        });
+        observer.observe(bookingModal, { attributes: true, attributeFilter: ['class'], attributeOldValue: true });
     }
 
     /*=============== FAQ ACCORDION ===============*/
     const faqItems = document.querySelectorAll('.faq__item');
-    if (faqItems.length > 0) {
-        faqItems.forEach((item) => {
-            const faqHeader = item.querySelector('.faq__header');
-            faqHeader.addEventListener('click', () => {
-                const openItem = document.querySelector('.faq-open');
+    const techniquesItems = document.querySelectorAll('.techniques__item');
+    const complementaryItems = document.querySelectorAll('.complementary__item');
+
+    faqItems.forEach((item) => {
+        const faqHeader = item.querySelector('.faq__header');
+
+        faqHeader.addEventListener('click', () => {
+            const openItem = document.querySelector('.faq-open');
+
+            // Ferme l'élément déjà ouvert s'il est différent de celui cliqué
+            if (openItem && openItem !== item) {
+                toggleItem(openItem);
+            }
+
+            // Ouvre ou ferme l'élément cliqué
+            toggleItem(item);
+        });
+    });
+
+    const toggleItem = (item) => {
+        const faqContent = item.querySelector('.faq__content');
+
+        if (item.classList.contains('faq-open')) {
+            faqContent.style.maxHeight = null;
+            item.classList.remove('faq-open');
+        } else {
+            // Calcule la hauteur nécessaire pour le contenu
+            faqContent.style.maxHeight = faqContent.scrollHeight + 'px';
+            item.classList.add('faq-open');
+        }
+    };
+
+    const setupAccordion = (items) => {
+        items.forEach((item) => {
+            const header = item.querySelector('.complementary__header');
+            if (header) { // Vérification pour éviter les erreurs
+                header.addEventListener('click', () => {
+                const openItem = item.parentElement.querySelector('.is-open');
                 if (openItem && openItem !== item) {
-                    openItem.classList.remove('faq-open');
+                    toggleAccordionItem(openItem);
                 }
-                item.classList.toggle('faq-open');
+                toggleAccordionItem(item);
+            });
+            }
+        });
+    };
+
+    const toggleAccordionItem = (item) => {
+        const content = item.querySelector('.complementary__content');
+        item.classList.toggle('is-open');
+        content.style.maxHeight = item.classList.contains('is-open') ? content.scrollHeight + 'px' : null;
+    };
+    setupAccordion(complementaryItems);
+
+    // Logique pour les raccourcis des techniques
+    const techniqueTabs = document.querySelectorAll('.technique-tab__card');
+    const techniqueDetails = document.querySelectorAll('.techniques__details-content');
+    const techniqueImages = document.querySelectorAll('.techniques__details-image');
+
+    techniqueTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            // Gérer l'état actif des onglets
+            document.querySelector('.technique-tab__card.active').classList.remove('active');
+            tab.classList.add('active');
+
+            // Gérer l'affichage du contenu et de l'image
+            const targetTechnique = tab.dataset.technique;
+            techniqueDetails.forEach(detail => {
+                detail.classList.toggle('active', detail.dataset.technique === targetTechnique);
+            });
+            techniqueImages.forEach(image => {
+                image.classList.toggle('active', image.dataset.technique === targetTechnique);
             });
         });
-    }
+    });
 
     /*=============== SWIPER JS ===============*/
     if (document.querySelector(".cabinet-swiper")) {
-        new Swiper(".cabinet-swiper", { spaceBetween: 30, loop: true, pagination: { el: ".swiper-pagination", clickable: true }, navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" } });
+        new Swiper(".cabinet-swiper", {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            loop: true,
+            autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
+            },
+            pagination: { el: ".swiper-pagination", clickable: true },
+            navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+            breakpoints: {
+                768: { slidesPerView: 2, spaceBetween: 30 },
+                1024: { slidesPerView: 3, spaceBetween: 30 },
+            },
+        });
+
+        // Logique pour la galerie modale du cabinet
+        const galleryModal = document.getElementById('gallery-modal');
+        const galleryImages = document.querySelectorAll('.cabinet__gallery-img');
+        const modalImage = document.getElementById('gallery-modal-image');
+        const closeGalleryModalBtn = document.getElementById('close-gallery-modal');
+        const galleryPrevBtn = document.getElementById('gallery-prev');
+        const galleryNextBtn = document.getElementById('gallery-next');
+        let currentImageIndex;
+
+        const openGalleryModal = (index) => {
+            currentImageIndex = index;
+            modalImage.src = galleryImages[currentImageIndex].src;
+            galleryModal.classList.add('is-open');
+            galleryPrevBtn.style.display = 'block';
+            galleryNextBtn.style.display = 'block';
+        };
+
+        const closeGalleryModal = () => galleryModal.classList.remove('is-open');
+
+        galleryImages.forEach((img, index) => img.addEventListener('click', () => openGalleryModal(index)));
+        closeGalleryModalBtn.addEventListener('click', closeGalleryModal);
+        galleryModal.addEventListener('click', (e) => e.target === galleryModal && closeGalleryModal());
+        galleryNextBtn.addEventListener('click', () => openGalleryModal((currentImageIndex + 1) % galleryImages.length));
+        galleryPrevBtn.addEventListener('click', () => openGalleryModal((currentImageIndex - 1 + galleryImages.length) % galleryImages.length));
+
+        // Cacher les flèches de la modale galerie à la fermeture
+        new MutationObserver(() => !galleryModal.classList.contains('is-open') && (galleryPrevBtn.style.display = 'none', galleryNextBtn.style.display = 'none')).observe(galleryModal, { attributes: true, attributeFilter: ['class'] });
     }
     if (document.querySelector(".hero-swiper")) {
         new Swiper(".hero-swiper", { spaceBetween: 30, loop: true, effect: 'fade', autoplay: { delay: 4000, disableOnInteraction: false } });

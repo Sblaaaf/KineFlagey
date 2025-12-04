@@ -5,14 +5,24 @@
   .cabinet__gallery {
       grid-template-columns: repeat(3, 1fr);
   }
-  .team__container {
-    grid-template-columns: repeat(3, 1fr);
-  }
+  
   .modal__content {
+    max-width: 600px;
     width: auto;
   }
   .footer__content {
       grid-template-columns: repeat(3, 1fr);
+  }
+  .cabinet__features {
+      flex-direction: column;
+      gap: 1.5rem;
+  }
+  
+}
+
+@media screen and (max-width: 768px) {
+  .complementary__content-grid {
+      grid-template-columns: 1fr;
   }
 }
 
@@ -46,32 +56,29 @@
   .hero__container {
     grid-template-columns: 1fr 1fr;
     align-items: center;
-    padding: 2rem;
   }
+
   .hero__data {
     text-align: left;
   }
+
   .hero__logo {
       margin-left: 0;
   }
 
-  .service-details__wrapper {
-    margin-top: 3rem;
-  }
-
   .service-details__container.active {
-    display: flex; /* Utiliser flexbox sur les grands écrans */
+    display: flex;
     flex-direction: row;
     gap: 2.5rem;
-    align-items: stretch; /* Pour que les enfants aient la même hauteur */
+    align-items: stretch;
     padding: 2.5rem 3rem;
   }
 
   .service-details__image {
-    flex-shrink: 0; /* Empêche l'image de se réduire */
-    width: 360px; /* Largeur fixe pour l'image */
-    height: auto; /* La hauteur s'adapte au ratio */
-    aspect-ratio: 3 / 4; /* Ratio plus vertical pour desktop */
+    flex-shrink: 0;
+    width: 360px;
+    height: auto;
+    aspect-ratio: 3 / 4; 
   }
 
   .service-details__nav {
@@ -86,31 +93,26 @@
     align-items: flex-end;
   }
 
-  .team__container {
+  .techniques-tabs__container {
     grid-template-columns: repeat(4, 1fr);
   }
 
   .techniques__wrapper {
-    grid-template-columns: 1.2fr 1fr;
-  }
-
-  .complementary__wrapper {
-    grid-template-columns: 1fr 1.2fr; /* Image à gauche, accordéon à droite */
-  }
-
-  .complementary__image-display {
-    display: block; /* Affiché sur desktop */
-    position: sticky;
-    top: calc(4rem + 2rem); /* Hauteur header scroll + marge */
+    grid-template-columns: 1.5fr 1fr; /* Contenu à gauche (1.5), image à droite (1) */
+    gap: 2.5rem;
   }
   .techniques__content-cards {
     grid-template-columns: 1fr 1fr;
   }
 
-  .cabinet__container {
-      grid-template-columns: 1fr 1.5fr;
-      align-items: center;
+  .complementary__content-img { 
+      display: block; 
   }
+
+ .cabinet-swiper {
+    height: 400px;
+    margin-top: 2rem;
+ }
 
   .contact__container {
       grid-template-columns: 2fr 3fr;
@@ -131,18 +133,15 @@
 }
 
 @media screen and (min-width: 1200px) {
-  .container {
-    margin-left: auto;
-    margin-right: auto;
-  }
+ /*  .container {
+    margin: 0 auto;
+    padding: 0 2rem;
+  } */
   .section {
     padding: 4rem 0;
   }
-  .team__container {
-    grid-template-columns: repeat(4, 1fr);
-  }
   .footer__container {
-      grid-template-columns: .5fr repeat(3, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       justify-content: space-between;
   }
   .footer__content {
@@ -151,5 +150,22 @@
 
   .scrollup {
     right: 3rem;
+  }
+
+  /* Practitioner Modal on larger screens */
+  .practitioner-modal__header {
+      flex-direction: row;
+      text-align: left;
+      gap: 1.5rem;
+  }
+  .practitioner-modal__meta {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.5rem;
+  }
+
+  .practitioner-modal__actions {
+      flex-direction: row;
+      gap: 1rem;
   }
 }
