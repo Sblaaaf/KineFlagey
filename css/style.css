@@ -23,7 +23,8 @@
 .highlight {
     position: relative;
     padding: 0.3rem 0;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 60%, #ffc278b4 60%, #ffc278b4 90%, rgba(255, 255, 255, 0) 90%);
+    /* background: linear-gradient(180deg, rgba(255, 255, 255, 0) 60%, #ffc278b4 60%, #ffc278b4 90%, rgba(255, 255, 255, 0) 90%); */
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 60%, #BCDE5780 60%, #BCDE5780 90%, rgba(255, 255, 255, 0) 90%);
 }
 
 html {
@@ -166,6 +167,13 @@ img {
     display: flex;
     align-items: center;
     gap: .5rem;
+}
+
+/* Éléments réservés au menu mobile, masqués par défaut */
+.nav__logo--mini,
+.nav__menu-cta,
+.nav__menu-contact {
+    display: none;
 }
 
 .nav__toggle {
@@ -534,7 +542,7 @@ img {
 .service-details__subtitle { margin-top:-.75rem; color:var(--gray); font-size: 1rem; }
 .service-details__description { font-size: 1rem; line-height: 1.6; }
 .service-details__list { display: grid; gap: .75rem; font-size: 1rem; }
-.service-details__list i { color: #1a930f; margin-right: .5rem; }
+.service-details__list i { color: var(--accent); margin-right: .5rem; }
 
 .service-details__footer {
     padding-top: 1.5rem;
@@ -552,7 +560,7 @@ img {
     width: 40px;
     height: 40px;
     border-width: 2px;
-    border: 1px solid var(--gray);
+    border: 1px solid var(--accent);
 }
 .service-details__actions { 
     display: flex; 
@@ -691,49 +699,125 @@ img {
   background-color: rgba(0, 0, 0, 0.8); display: grid; place-items: center;
   z-index: 1000; opacity: 0; visibility: hidden; transition: .3s;
 }
-.modal.is-open { opacity: 1; visibility: visible; }
+
+.modal.is-open { 
+    opacity: 1; 
+    visibility: visible; 
+}
+
+#booking-modal .modal__content {
+    height: 90svh;
+    width: 100%;
+    max-width: 600px;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
 .modal__content {
-  background-color: var(--white); padding: 2rem 1.5rem; border-radius: .5rem;
-  max-width: 500px; width: 90%; position: relative; text-align: center;
+  background-color: var(--white);
+  padding: 2rem 3rem 1rem 3rem;
+  border-radius: .5rem;
+  max-width: 600px;
+  width: 90%;
+  position: relative;
+  text-align: center;
 }
 .modal__close {
-  position: absolute; top: 1rem; right: 1rem; font-size: 1.5rem;
-  cursor: pointer; color: var(--gray);
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--gray);
 }
-.modal__title { margin-bottom: 1rem; }
+
+.modal__title { margin-bottom: .5rem; }
 .modal__description { margin-bottom: 1.5rem; }
 .modal__options { display: flex; flex-direction: column; gap: 1rem; }
 .modal__option {
-  display: block; padding: 1rem; background-color: var(--light);
-  border-radius: .5rem; font-weight: 500; transition: .3s;
+  display: block;
+  padding: 1rem;
+  background-color: var(--light);
+  border-radius: .5rem;
+  font-weight: 500;
+  transition: all .4s ease-in-out;
+  cursor: pointer
 }
-.modal__option:hover { background-color: var(--primary); color: var(--white); }
+.modal__option:hover { 
+    background-color: var(--primary-light);
+}
+.modal__option:hover svg {
+    transform: scale(1.2);
+    fill: var(--dark);
+    color: var(--primary-dark);
+}
 
-/* Modal Booking Suggestion */
-.practitioner-suggestion { margin-top: 2rem; }
-.practitioner-suggestion h4 { margin-bottom: 1rem; }
-.practitioner-suggestion__item {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: .75rem; background-color: var(--light); border-radius: .5rem; margin-top: .5rem;
+/* Modal Booking Suggestion - version compacte et légère */
+.practitioner-suggestion {
+    margin-top: 1.25rem;
 }
-.button--small { padding: .5rem 1rem; font-size: .875rem; }
-.modal__option-item {
+
+.practitioner-suggestion h4 {
+    margin-bottom: .75rem;
+    font-size: .95rem;
+    font-weight: 500;
+}
+
+.practitioner-suggestion__item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    column-gap: .75rem;
+    row-gap: .25rem;
+    padding: .75rem .75rem;
+    margin-bottom: .5rem;
+    border-radius: .5rem;
+    background-color: var(--white);
+    border: 1px solid rgba(0,0,0,0.03);
+    box-shadow: none;
+}
+
+.practitioner-suggestion__item:hover {
+    border-color: var(--primary-light);
+    background-color: var(--light);
+}
+
+.practitioner-suggestion__info {
     display: flex;
     align-items: center;
-    background-color: var(--light);
-    border-radius: .5rem;
+    gap: .5rem;
 }
-.modal__option {
-    flex-grow: 1;
-    background-color: transparent;
+
+.practitioner-suggestion__avatar {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    object-fit: cover;
 }
-.modal__option-info {
-    padding: 1rem;
-    color: var(--gray);
-    border-left: 1px solid #e0d9d1;
+
+.practitioner-suggestion__info strong {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--dark);
 }
-.modal__option-info:hover {
-    color: var(--primary-dark);
+
+.practitioner-suggestion__actions {
+    display: flex;
+    gap: .4rem;
+    align-items: center;
+}
+.practitioner-suggestion__actions .rosa-icon {
+    color: white;
+    width: 1.5rem;
+    height: 1.5rem;
+    display: inline-block;
+}
+
+.practitioner-suggestion__actions .button--small {
+    padding: .4rem .75rem;
+    font-size: 1.2rem;
+    white-space: nowrap;
 }
 
 /* ==================== CABINET (nouveaux styles) ==================== */
@@ -970,6 +1054,8 @@ img {
 }
 
 .contact__container {
+    /* gap: 2.5rem;
+    align-items: flex-start; */
     gap: 2.5rem;
     align-items: flex-start;
 }
@@ -1073,6 +1159,16 @@ img {
     display: flex;
     justify-content: flex-end;
     margin-top: 1.5rem;
+
+    button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: .5rem;
+        font-size: 1rem;
+        font-family: inherit;
+        text-transform: uppercase;
+    }
 }
 
 .contact__form .button i {
@@ -1126,11 +1222,15 @@ option[value=""][disabled] {
 /* Style de la flèche personnalisée : */
 .select-selected::after {
     position: absolute;
-    content: '<i class="fa-solid fa-chevron-down"></i>';
+    content: '\f078';              /* code de fa-chevron-down */
+    font-family: "Font Awesome 5 Free"; 
+    font-weight: 900;              /* pour les icônes solides */
     top: 50%;
-    right: 1rem;
+    right: 0rem;
     transform: translateY(-50%);
     transition: transform .3s;
+    font-size: .8rem;
+    color: var(--primary);
 }
 
 /* Rotation de la flèche quand le select est ouvert */
@@ -1253,10 +1353,16 @@ option[value=""][disabled] {
 }
 .technique-tab__card.active {
     transform: translateY(-5px);
-    box-shadow: 0 5px 0 var(--primary);
-    color: var(--primary);
+    box-shadow: 0 5px 0 var(--accent);
 }
-.technique-tab__icon { font-size: 1.75rem; margin-bottom: .5rem; color: var(--primary); }
+.technique-tab__icon {
+    width: 5rem;
+    height: 5rem;
+    margin-bottom: .5rem;
+    color: var(--accent);
+    stroke: var(--accent);
+    fill: var(--accent);
+}
 .technique-tab__title { font-size: 1.1rem; font-weight: 500; }
 
 /* Styles pour le contenu des techniques */
@@ -1281,8 +1387,6 @@ option[value=""][disabled] {
     border-radius: 1.5rem;
 }
 
-.techniques__details-image img {
-}
 
 .techniques__details-content-wrapper {
     padding: 1rem;
@@ -1309,7 +1413,7 @@ option[value=""][disabled] {
 .techniques__details-content h4 { font-size: 1.1rem; color: var(--primary-dark); }
 .techniques__details-content ul { display: grid; gap: .5rem; list-style: none; }
 .techniques__details-content ul li { display: flex; gap: .5rem; align-items: center; }
-.techniques__details-content ul i { color: var(--primary); }
+.techniques__details-content ul i { color: var(--accent); }
 
 .techniques__details-image {
     display: none;
@@ -1347,7 +1451,7 @@ option[value=""][disabled] {
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
     align-items: center;
 }
@@ -1372,7 +1476,7 @@ option[value=""][disabled] {
 
 .complementary__item.is-open {
     flex-basis: 100%;
-    max-width: 1000px;
+    max-width: 1200px;
 }
 
 .complementary__item.is-open, .complementary__item:hover {
@@ -1384,7 +1488,7 @@ option[value=""][disabled] {
     display: flex;
     align-items: center;
     gap: 1rem;
-    padding: 1.25rem;
+    padding: 0.75rem 1.25rem;
     cursor: pointer;
     position: relative;
     z-index: 1;
@@ -1393,11 +1497,7 @@ option[value=""][disabled] {
     transition: color .4s;
 }
 
-.complementary__header:hover,
-.complementary__item.is-open .complementary__header {
-}
-
-.complementary__icon { font-size: 1.5rem; color: var(--primary); width: 25px; text-align: center; }
+.complementary__icon { color: var(--primary); width: 3rem; height:3rem; text-align: center; }
 .complementary__header h3, .complementary__header .complementary__icon, .complementary__header .complementary__arrow { position: relative; z-index: 3; }
 .complementary__item h3 { font-size: 1.1rem; font-weight: 600; flex-grow: 1; color: var(--primary-dark); transition: color .4s; }
 .complementary__arrow { font-size: 1.25rem; transition: transform .3s; }
@@ -1472,10 +1572,44 @@ option[value=""][disabled] {
     flex-direction: row;
     gap: 2rem;
     flex-wrap: nowrap;
-    align-items: flex-start;
+    align-items: center;
     justify-content: flex-start;
 }
 
+.complementary__link {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    flex-direction: row;
+
+    img {
+        width: 10rem;
+        height: 10rem;
+        object-fit: contain;
+    }
+
+    i {
+        font-size: 0.8rem;
+        transition: transform .3s;
+    }
+}
+.complementary__btn {
+    margin-top: 1rem;
+    text-align: center;
+    width: 100%;
+    background-color: transparent;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+
+    :hover {
+        background-color: var(--accent);
+        color: var(--white);
+    }
+}
+.complementary__btn:hover {
+    background-color: var(--accent);
+    color: var(--white);
+}
 /* Règle spécifique pour la section "Analyse de la course" */
 .complementary__item.is-open .complementary__content.course-analysis {
     display: flex;
@@ -1500,7 +1634,7 @@ option[value=""][disabled] {
 }
 
 .pilates-feature__icon {
-    color: #1a930f;
+    color: var(--accent);
     font-size: 1.1rem;
     margin-top: 0.2rem; /* Ajustement vertical */
 }
@@ -1747,43 +1881,61 @@ option[value=""][disabled] {
 /* ====================
    PRACTITIONER MODAL
    ==================== */
+
 .practitioner-modal__header {
+    position: relative;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid var(--light);
+    gap: 2rem;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
     text-align: center;
+    align-content: center;
+    justify-content: flex-start;
 }
 
-.practitioner-modal__photo {
-    width: 80px;
-    height: 80px;
+.practitioner-modal__photo {    
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid var(--primary-light);
+    border: 1px solid var(--primary);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
-.practitioner-modal__header-info {
-    flex: 1;
+.practitioner-modal__header-info h3 {
+    text-align: left;
+}
+.practitioner-modal__header-info h3 {
+    color: var(--primary-dark);
+    font-weight: 600;docker images
+
+    span {
+        color: var(--dark);
+    }
 }
 
 .practitioner-modal__name {
     font-size: 1.5rem; /* h2-font-size */
     margin: 0 0 0.5rem;
-    color: var(--dark);
-    color: var(--primary);
+    color: red;
+
+    span {
+        color: var(--dark);
+    }
 }
 
 .practitioner-modal__meta {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
     font-size: .875rem; /* small-font-size */
     color: var(--gray);
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+    align-items: flex-start;
+    margin-top: 1rem;
 }
 
 .practitioner-modal__meta span {
@@ -1799,11 +1951,6 @@ option[value=""][disabled] {
 .practitioner-modal__body {
     margin-bottom: 1.5rem;
     text-align: left;
-}
-
-.practitioner-modal__description {
-    margin-bottom: 1.5rem;
-    line-height: 1.6;
 }
 
 .practitioner-modal__section {
@@ -1828,10 +1975,6 @@ option[value=""][disabled] {
     background-color: var(--light);
 }
 
-.practitioner-modal__description {
-    margin-top: 1.5rem;
-}
-
 .practitioner-modal__badges {
     display: flex;
     flex-wrap: wrap;
@@ -1848,19 +1991,20 @@ option[value=""][disabled] {
 }
 
 .practitioner-modal__footer {
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--light);
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1rem;
     align-items: flex-start;
 }
 
 .practitioner-modal__actions {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    align-items: flex-start;
     gap: .75rem;
     width: 100%;
+    flex-wrap: wrap;
+    justify-content: flex-start;
 }
 
 .practitioner-modal__actions .button {
@@ -1886,161 +2030,147 @@ option[value=""][disabled] {
 
 /* --- En-tête avec étapes --- */
 .modal__header-steps {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
-  font-size: var(--small-font-size);
-  color: var(--text-color-light);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--light);
+    width: 100%;
 }
 
 .modal__step {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: var(--text-color-light);
-  text-decoration: none;
-  transition: color 0.3s;
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    color: var(--gray);
+    font-weight: 500;
+    text-decoration: none;
+    transition: color .3s;
 }
 
 .modal__step::before {
-  content: attr(data-step);
-  display: grid;
-  place-items: center;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background-color: var(--container-color);
-  border: 1px solid var(--border-color);
-  font-weight: var(--font-semi-bold);
-  color: var(--text-color-light);
-  transition: all 0.3s;
+    content: attr(data-step);
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: var(--light);
+    border: 2px solid var(--light);
+    font-weight: 600;
+    color: var(--gray);
+    transition: all .3s;
 }
 
 .modal__step.active {
-  color: var(--title-color);
-  font-weight: var(--font-semi-bold);
+    color: var(--primary-dark);
 }
 
 .modal__step.active::before {
-  background-color: var(--primary-color);
-  color: #fff;
-  border-color: var(--primary-color);
+    background-color: var(--white);
+    color: var(--primary);
+    border-color: var(--primary);
 }
 
 a.modal__step:hover {
-  color: var(--primary-color);
+    color: var(--primary);
 }
 
 a.modal__step:hover::before {
-  border-color: var(--primary-color);
+    border-color: var(--primary);
 }
 
 .modal__step-separator {
-  color: var(--border-color);
+    color: var(--light);
 }
 
 
 /* --- Étape 1 : Sélection de la spécialité --- */
 .modal__options {
-  display: grid;
-  gap: 0.75rem; /* Espacement réduit */
-  margin-top: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+    overflow-y: auto;
+    padding: .5rem;
+    flex-grow: 1;
 }
 
 .modal__option-item {
-  display: flex;
-  align-items: center;
-  background-color: var(--container-color);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-sm);
-  transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    background-color: var(--light);
+    border: 1px solid transparent;
+    border-radius: .5rem;
+    transition: all .3s ease;
 }
 
 .modal__option-item:hover {
-  border-color: var(--primary-color-alt);
-  box-shadow: 0 4px 12px hsla(206, 24%, 15%, 0.05);
+    border-color: var(--primary);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
 }
 
 .modal__option {
-  flex-grow: 1;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 0.75rem 1rem;
-  text-decoration: none;
-  color: var(--title-color);
-  font-weight: var(--font-medium);
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    text-decoration: none;
+    color: var(--dark);
+    font-weight: 500;
 }
 
 .modal__option-icon {
-  width: 28px;
-  height: 28px;
-  fill: var(--primary-color);
+    display: none;
+
+    width: 32px;
+    height: 32px;
+    color: var(--primary);
+}
+.modal__option-icon path {
+    fill: currentColor;
 }
 
 .modal__option-info {
-  padding: 0.75rem 1rem;
-  color: var(--text-color-light);
-  border-left: 1px solid var(--border-color);
-  transition: color 0.3s;
+    padding: 1rem 1.25rem;
+    color: var(--gray);
+    border-left: 1px solid #e0d9d1;
+    transition: color .3s;
 }
 
 .modal__option-info:hover {
-  color: var(--primary-color);
+    color: var(--primary);
 }
 
 
 /* --- Étape 2 : Sélection du praticien --- */
 .modal__back-link {
-  display: inline-block;
-  margin-bottom: 1rem;
-  color: var(--text-color-light);
-  text-decoration: none;
-  font-size: var(--small-font-size);
-  transition: color 0.3s;
+    display: inline-block;
+    margin-top: 2rem;
+    color: var(--gray);
+    text-decoration: none;
+    font-size: .9rem;
+    transition: color .3s;
 }
 
 .modal__back-link:hover {
-  color: var(--primary-color);
+    color: var(--primary);
 }
 
 .modal__back-link i {
-  margin-right: 0.25rem;
+    margin-right: .5rem;
 }
 
+/* Conteneur de la liste de suggestions dans la modal */
 #practitioner-suggestion {
-  display: grid;
-  gap: 0.75rem;
-  margin-top: 1.5rem;
-}
-
-.practitioner-suggestion__item {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 1rem;
-  background-color: var(--container-color);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-sm);
-}
-
-.practitioner-suggestion__info strong {
-  font-size: var(--h3-font-size);
-  font-weight: var(--font-semi-bold);
-  color: var(--title-color);
-}
-
-.practitioner-suggestion__actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.practitioner-suggestion__actions .button--small {
-  padding: 0.6rem 1rem;
-  font-size: 0.8rem;
+    display: grid;
+    gap: .5rem;
+    margin-top: 1rem;
+    overflow-y: auto;
+    padding: .25rem;
+    align-content: flex-start;
 }

@@ -45,9 +45,9 @@ function initComponents() {
             teamModalContent.innerHTML = `
                 <i class="fa-solid fa-xmark modal__close"></i>
                 <div class="practitioner-modal__header">
-                    <img src="${memberData.photo}" alt="Photo de ${memberData.name}" class="practitioner-modal__photo">
+                    <img src="${memberData.photo}" alt="${memberData.firstName} <span>${memberData.lastName}</span>" class="practitioner-modal__photo">
                     <div class="practitioner-modal__header-info">
-                        <h3 class="practitioner-modal__name">${memberData.name}</h3>
+                        <h3 class="practitioner-modal__name">${memberData.firstName} ${memberData.lastName}</h3>
                         <div class="practitioner-modal__meta">
                             ${memberData.inami ? `<span><i class="fa-solid fa-id-card"></i> INAMI : ${memberData.inami}</span>` : ''}
                             ${memberData.convention ? `<span><i class="fa-solid fa-file-signature"></i> ${memberData.convention}</span>` : ''}
@@ -67,19 +67,26 @@ function initComponents() {
                     <div class="practitioner-modal__section">
                         <h4 class="practitioner-modal__section-title">Techniques</h4>
                         <div class="practitioner-modal__badges">${createBadges(memberData.techniques)}</div>
-                    </div>` : ''}
-
-                    ${memberData.description ? `<p class="practitioner-modal__description">${memberData.description}</p>` : ''}
-                </div>
-
-                <div class="practitioner-modal__footer">
-                    <h4 class="practitioner-modal__section-title">Contact &amp; RDV</h4>
-                    <div class="practitioner-modal__actions">
-                        <a href="tel:${memberData.contact.phone}" class="button outline-secondary"><i class="fa-solid fa-phone"></i> ${memberData.contact.phone}</a>
-                        <a href="${memberData.contact.rosaLink}" target="_blank" class="button"><i class="fa-solid fa-calendar-check"></i> Prendre rendez-vous</a>
-                        <a href="${memberData.contact.rosaLink}" target="_blank" class="button button--rosa"><i class="fa-solid fa-notes-medical"></i> Fiche Rosa.be</a>
+                    </div>
+                    ` : ''}
+                    
+                    ${memberData.description ? `
+                    <div class="practitioner-modal__section">
+                        <h4 class="practitioner-modal__section-title">À propos</h4>
+                        <p class="practitioner-modal__description">${memberData.description}</p>
+                    </div>
+                    ` : ''}
+                    
+                    <div class="practitioner-modal__section">
+                        <h4 class="practitioner-modal__section-title">Contacts</h4>
+                        <div class="practitioner-modal__actions">
+                            ${memberData.contact.phone ? `<a href="tel:${memberData.contact.phone}" class="button outline-secondary"><i class="fa-solid fa-phone"></i> ${memberData.contact.phone}</a>` : ''}
+                            <a href="${memberData.contact.rosaLink}" target="_blank" class="button button--rosa">Rosa.be <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                            <a href="${memberData.contact.rosaLink}" target="_blank" class="button"><i class="fa-solid fa-calendar-check"></i> Prendre rendez-vous</a>
+                        </div>
                     </div>
                 </div>
+
             `;
             teamModal.classList.add('is-open');
             modalPrevBtn.style.display = showNav ? 'block' : 'none';
@@ -206,14 +213,13 @@ function initComponents() {
     const renderSpecialties = () => {
         const allSpecialties = [...new Set(Object.values(teamMembers).flatMap(m => m.specialties || []))];
         let content = `
-            <i class="fa-solid fa-xmark modal__close"></i>
             <div class="modal__header-steps">
                 <span class="modal__step active" data-step="1">Spécialité</span>
                 <span class="modal__step-separator">&gt;</span>
                 <span class="modal__step" data-step="2">Praticien</span>
             </div>
             <h3 class="modal__title">Quel est le motif de votre consultation ?</h3>
-            <p class="modal__description">Sélectionnez une spécialité pour trouver le praticien adapté.</p>
+            <i class="fa-solid fa-xmark modal__close"></i>
             <div class="modal__options" id="specialty-options">`;
 
         allSpecialties.forEach(specialty => {
@@ -234,30 +240,36 @@ function initComponents() {
     const renderPractitioners = (specialty) => {
         const practitioners = Object.values(teamMembers).filter(m => m.specialties && m.specialties.map(s => s.trim()).includes(specialty.trim()));
         let content = `
-            <i class="fa-solid fa-xmark modal__close"></i>
             <div class="modal__header-steps">
                 <a href="#" class="modal__step" id="back-to-specialties-step" data-step="1">Spécialité</a>
                 <span class="modal__step-separator">&gt;</span>
                 <span class="modal__step active" data-step="2">Praticien</span>
             </div>
-            <a href="#" class="modal__back-link" id="back-to-specialties"><i class="fa-solid fa-arrow-left"></i> Retour aux spécialités</a>
-            <h3 class="modal__title">Praticiens recommandés pour "${specialty}"</h3>
+            <i class="fa-solid fa-xmark modal__close"></i>
+            <h3 class="modal__title"><i class="fa-solid fa-arrow-right" style="color:var(--primary);"></i> ${specialty}</h3>
+            <p class="modal__description">Praticiens recommandés :</p>
             <div id="practitioner-suggestion">`;
 
         practitioners.forEach(member => {
             content += `
                 <div class="practitioner-suggestion__item">
                     <div class="practitioner-suggestion__info">
-                        <strong>${member.name}</strong>
+                        <img src="${member.photo}" alt="${member.firstName} <span>${member.lastName}</span>" class="practitioner-suggestion__avatar">
+                        <strong>${member.firstName} ${member.lastName}</strong>
                     </div>
                     <div class="practitioner-suggestion__actions">
-                        <a href="${member.contact.rosaLink}" target="_blank" class="button button--small"><i class="fa-solid fa-calendar-check"></i> RDV</a>
-                        <a href="tel:${member.contact.phone}" class="button button--small outline-secondary"><i class="fa-solid fa-phone"></i> Appeler</a>
-                        <a href="${member.contact.rosaLink}" target="_blank" class="button button--small button--rosa"><i class="fa-solid fa-notes-medical"></i> Fiche Rosa</a>
+                        <a href="${member.contact.rosaLink}" target="_blank" class="button button--small"><i class="fa-solid fa-calendar-check"></i></a>
+                        <a href="tel:${member.contact.phone}" class="button button--small outline-secondary"><i class="fa-solid fa-phone"></i></a>
+                        <a href="${member.contact.rosaLink}" target="_blank" class="button button--small button--rosa">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="currentColor" class="rosa-icon">
+                                <path d="M62.91,90.67h0l-13.32-29.43c-3.54-7.77-1.94-16.03,4.44-21.1h0c1.67-1.32,2.5-2.5,2.91-4.23.49-1.94.56-4.65.49-9.16-.07-5.55-4.44-9.79-9.92-9.79s-9.92,4.37-9.92,9.72v61.91c0,3.05-2.5,5.41-5.48,5.41s-5.48-2.43-5.48-5.41V26.54c-.14-11.38,9.3-20.54,20.82-20.54s20.82,9.02,20.96,20.54c.07,4.51.07,8.61-.9,12.21-.97,3.75-2.98,6.94-6.59,9.85h0c-.42.35-1.32,1.18-1.8,2.5-.49,1.25-.69,3.12.49,5.83l13.32,29.43c1.25,2.78,0,5.97-2.85,7.15h0c-.69.28-1.39.42-2.15.42-2.08-.07-4.09-1.25-5-3.26h0Z"/>
+                            </svg>
+                        </a>
                     </div>
                 </div>`;
         });
         content += `</div>`;
+        content += `<a href="#" class="modal__back-link" id="back-to-specialties"><i class="fa-solid fa-arrow-left"></i> Retour aux spécialités</a>`;
         bookingModalContent.innerHTML = content;
     };
 
@@ -277,10 +289,10 @@ function initComponents() {
             const target = e.target.closest('a');
             if (!target) return;
 
-            if (target.matches('[data-specialty]')) {
+            if (target.matches('.modal__option')) {
                 const specialty = target.dataset.specialty;
                 renderPractitioners(specialty);
-            } else if (target.id === 'back-to-specialties') {
+            } else if (target.id === 'back-to-specialties' || target.id === 'back-to-specialties-step') {
                 renderSpecialties();
             }
         });
