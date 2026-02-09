@@ -473,7 +473,7 @@ img {
     stroke-width: .05rem;
 }
 .service-tab__title {
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 600;
 }
 .service-tab__card i {
@@ -1520,6 +1520,10 @@ option[value=""][disabled] {
     flex-direction: column;
     gap: 1.5rem;
     padding: 0 1rem;
+
+    p {
+        max-width: 610px;
+    }
 }
 
 .complementary__content-row {
