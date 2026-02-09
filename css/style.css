@@ -1326,6 +1326,10 @@ option[value=""][disabled] {
 .faq-open .faq__header {
     margin-bottom: 1rem;
 }
+/* .muted {
+    color: var(--gray);
+    font-size: 1rem;
+} */
 
 /* TECHNIQUES */
 
