@@ -169,7 +169,8 @@
   }
 
   .complementary__item {
-    max-width: 100%;
+    width: 100%;
+    transition: all .4s ease-out;
   }
 
   .complementary__item.is-open .complementary__content {

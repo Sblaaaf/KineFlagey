@@ -358,9 +358,7 @@ function initComponents() {
     };
 
     const toggleAccordionItem = (item) => {
-        const content = item.querySelector('.complementary__content');
         item.classList.toggle('is-open');
-        content.style.maxHeight = item.classList.contains('is-open') ? content.scrollHeight + 'px' : null;
     };
     setupAccordion(complementaryItems);
 
