@@ -71,9 +71,11 @@ function initComponents() {
                     ` : ''}
                     
                     ${memberData.description ? `
-                    <div class="practitioner-modal__section">
-                        <h4 class="practitioner-modal__section-title">À propos</h4>
-                        <p class="practitioner-modal__description">${memberData.description}</p>
+                    <div class="practitioner-modal__section practitioner-modal__accordion">
+                        <h4 class="practitioner-modal__section-title practitioner-modal__accordion-toggle" role="button" tabindex="0">À propos <i class="fa-solid fa-chevron-down"></i></h4>
+                        <div class="practitioner-modal__accordion-content">
+                            <p class="practitioner-modal__description">${memberData.description}</p>
+                        </div>
                     </div>
                     ` : ''}
                     
@@ -85,12 +87,28 @@ function initComponents() {
                             ${memberData.contact.phone ? `<a href="https://wa.me/${memberData.contact.phone.replace(/[^0-9]/g, '')}" target="_blank" class="button whatsapp"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>` : ''}
                             ${memberData.contact.rosaLink ? `<a href="${memberData.contact.rosaLink}" target="_blank" class="button button--rosa">Rosa.be <i class="fa-solid fa-arrow-up-right-from-square"></i></a>` : ''}
                         </div>
-                </div>
+                        ${memberData.contact.contactNote ? `<p class="practitioner-modal__contact-note">${memberData.contact.contactNote}</p>` : ''}
+                    </div>
 
             `;
             teamModal.classList.add('is-open');
             modalPrevBtn.style.display = showNav ? 'block' : 'none';
             modalNextBtn.style.display = showNav ? 'block' : 'none';
+            
+            // Initialiser les accordions de la modal
+            const accordions = teamModalContent.querySelectorAll('.practitioner-modal__accordion-toggle');
+            accordions.forEach(toggle => {
+                toggle.addEventListener('click', (e) => {
+                    const accordion = toggle.closest('.practitioner-modal__accordion');
+                    accordion.classList.toggle('is-open');
+                });
+                toggle.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        toggle.click();
+                    }
+                });
+            });
         }
     }
 

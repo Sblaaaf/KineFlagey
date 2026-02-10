@@ -13,7 +13,8 @@ const teamMembers = {
         contact: {
             email: 'gillespiraux@gmail.com', 
             phone: '0478 62 93 21',
-            rosaLink: 'https://rosa.be/fr/hp/gilles-piraux'
+            rosaLink: 'https://rosa.be/fr/hp/gilles-piraux',
+            
         }
     },
     2: {
@@ -30,6 +31,7 @@ const teamMembers = {
             email: 'maria.kalala.beltran@gmail.com',
             phone: '0491 17 78 41',
             /* rosaLink: 'https://rosa.be/fr/hp/maria-kalala-beltran' */
+            
         }
     },
     3: {
@@ -45,8 +47,8 @@ const teamMembers = {
         contact: {
             email: 'kine.vanroy@gmail.com', 
             phone: '0479 75 59 82',
-            rosaLink: 'https://rosa.be/fr/hp/olivier-van-roy/'
-        }
+            rosaLink: 'https://rosa.be/fr/hp/olivier-van-roy/',
+            }
     },
     4: {
         firstName: 'Fanny',
@@ -62,6 +64,7 @@ const teamMembers = {
             email: 'kine.garo.fanny@gmail.com',
             phone: '0472 91 55 42',
             /* rosaLink: 'https://rosa.be/fr/hp/fanny-garo/' */
+            contactNote: 'Contactez-moi préférentiellement par SMS ou via WhatsApp, je vous recontacterai dès que possible, par appel ou message'
         }
     },
     5: {
@@ -77,7 +80,8 @@ const teamMembers = {
         contact: {
             email: 'Simon.leclef@gmail.com',
             phone: '0474 71 61 63',
-            rosaLink: 'https://rosa.be/fr/hp/simon-le-clef/'
+            rosaLink: 'https://rosa.be/fr/hp/simon-le-clef/',
+            
         }
     },
     6: {
@@ -93,7 +97,8 @@ const teamMembers = {
         contact: {
             email: 'math.escoyez@gmail.com',
             phone: '0488 63 18 84',
-            rosaLink: 'https://rosa.be/fr/hp/mathilde-escoyez'
+            rosaLink: 'https://rosa.be/fr/hp/mathilde-escoyez',
+            
         }
     },
     7: {
@@ -110,6 +115,7 @@ const teamMembers = {
             email: 'Thomas.bastard.physio@gmail.com',
             phone: '0486 47 29 87',
             /* rosaLink: 'https://rosa.be/fr/hp/thomas-bastard' */
+            
         }
     },
     8: {
@@ -125,7 +131,8 @@ const teamMembers = {
         contact: {
             email: 'mi.koninckx@kineflagey.be',
             phone: '0470 78 61 44',
-            rosaLink: 'https://rosa.be/fr/hp/marie-ines-koninckx'
+            rosaLink: 'https://rosa.be/fr/hp/marie-ines-koninckx',
+            
         }
     },
     9: {
@@ -137,7 +144,8 @@ const teamMembers = {
         contact: {
             email: 'as.libert@kineflagey.be',
             phone: '0478 90 12 34',
-            rosaLink: 'https://rosa.be/fr/hp/anne-sophie-libert'
+            rosaLink: 'https://rosa.be/fr/hp/anne-sophie-libert',
+            
         }
     }
 };

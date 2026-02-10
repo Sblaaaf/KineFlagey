@@ -725,10 +725,13 @@ img {
   background-color: var(--white);
   padding: 2rem 3rem 1rem 3rem;
   border-radius: .5rem;
-  max-width: 600px;
+  max-width: 700px;
   width: 90%;
   position: relative;
   text-align: center;
+  margin: 1rem auto;
+  max-height: calc(100vh - 2rem);
+  overflow-y: auto;
 }
 .modal__close {
   position: absolute;
@@ -1974,6 +1977,40 @@ option[value=""][disabled] {
     font-size: 1rem;
 }
 
+/* Accordion pour la section À propos */
+.practitioner-modal__accordion-toggle {
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 1rem !important;
+}
+
+.practitioner-modal__accordion-toggle i {
+    font-size: 0.8rem;
+    transition: transform 0.3s ease;
+    margin-left: 0.5rem;
+    flex-shrink: 0;
+}
+
+.practitioner-modal__accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    opacity: 0;
+}
+
+.practitioner-modal__accordion.is-open .practitioner-modal__accordion-content {
+    max-height: 500px;
+    opacity: 1;
+    overflow: visible;
+}
+
+.practitioner-modal__accordion.is-open .practitioner-modal__accordion-toggle i {
+    transform: rotate(180deg);
+}
+
 .practitioner-modal__section-title {
     display: flex;
     align-items: center;
@@ -2028,6 +2065,16 @@ option[value=""][disabled] {
     justify-content: center;
 }
 
+.practitioner-modal__contact-note {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--light);
+    font-size: 0.9rem;
+    color: var(--gray);
+    font-style: italic;
+    line-height: 1.5;
+}
+
 .button--rosa {
     background-color: #B91462;
 }
@@ -2045,7 +2092,7 @@ option[value=""][disabled] {
 }
 
 .other-services-swiper {
-    padding-bottom: 3rem; /* Espace pour la pagination */
+    padding-bottom: 3rem;
 }
 
 
