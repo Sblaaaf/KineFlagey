@@ -379,6 +379,30 @@
     width: 100%;
   }
 
+  /* Optimisation practitioner-suggestion sur mobile */
+  .practitioner-suggestion__item {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .practitioner-suggestion__avatar {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .practitioner-suggestion__actions {
+    justify-content: center;
+  }
+
+  /* Légende responsive - reste en grille 2x2 mais avec gap réduit */
+  .modal__legend-items {
+    gap: 0.75rem;
+  }
+
+  .modal__legend-item-text {
+    font-size: 0.85rem;
+  }
+
   /* Bouton "Prendre rendez-vous" uniquement dans le menu burger sur mobile */
   .nav__actions .button.open-booking-modal {
     display: none;

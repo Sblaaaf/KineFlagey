@@ -448,6 +448,7 @@ function initComponents() {
             <i class="fa-solid fa-xmark modal__close"></i>
             <h3 class="modal__title"><i class="fa-solid fa-arrow-right" style="color:var(--primary);"></i> ${specialty}</h3>
             <p class="modal__description">Praticiens recommandés :</p>
+            <p class="modal__note">Pour faciliter la prise de rendez-vous par GMS, privilégiez les SMS.</p>
             <div id="practitioner-suggestion">`;
 
         practitioners.forEach(member => {
@@ -464,7 +465,7 @@ function initComponents() {
                 actionsHTML += `<a href="https://wa.me/${member.contact.phone.replace(/[^0-9]/g, '')}" target="_blank" class="button button--small whatsapp" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>`;
             }
             if (member.contact.rosaLink) {
-                actionsHTML += `<a href="${member.contact.rosaLink}" target="_blank" class="button button--small button--rosa" title="Prendre rendez-vous sur Rosa.be"><i class="fa-solid fa-calendar-check"></i></a>`;
+                actionsHTML += `<a href="${member.contact.rosaLink}" target="_blank" class="button button--small button--rosa" title="Prendre rendez-vous sur Rosa.be"><svg class="rosa-icon"><use href="/assets/svg/sprite.svg#rosa"></use></svg></a>`;
             }
             actionsHTML += `</div>`;
 
