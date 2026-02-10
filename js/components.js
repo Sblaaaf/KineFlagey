@@ -451,21 +451,30 @@ function initComponents() {
             <div id="practitioner-suggestion">`;
 
         practitioners.forEach(member => {
+            let actionsHTML = `<div class="practitioner-suggestion__actions">`;
+            
+            // Ajouter les liens selon les données disponibles
+            if (member.contact.phone) {
+                actionsHTML += `<a href="tel:${member.contact.phone}" class="button button--small outline-secondary" title="Appeler"><i class="fa-solid fa-phone"></i></a>`;
+            }
+            if (member.contact.email) {
+                actionsHTML += `<a href="mailto:${member.contact.email}" class="button button--small outline-primary" title="Envoyer un email"><i class="fa-solid fa-envelope"></i></a>`;
+            }
+            if (member.contact.phone) {
+                actionsHTML += `<a href="https://wa.me/${member.contact.phone.replace(/[^0-9]/g, '')}" target="_blank" class="button button--small whatsapp" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>`;
+            }
+            if (member.contact.rosaLink) {
+                actionsHTML += `<a href="${member.contact.rosaLink}" target="_blank" class="button button--small button--rosa" title="Prendre rendez-vous sur Rosa.be"><i class="fa-solid fa-calendar-check"></i></a>`;
+            }
+            actionsHTML += `</div>`;
+
             content += `
                 <div class="practitioner-suggestion__item">
                     <div class="practitioner-suggestion__info">
-                        <img src="${member.photo}" alt="${member.firstName} <span>${member.lastName}</span>" class="practitioner-suggestion__avatar">
+                        <img src="${member.photo}" alt="${member.firstName} ${member.lastName}" class="practitioner-suggestion__avatar">
                         <strong>${member.firstName} ${member.lastName}</strong>
                     </div>
-                    <div class="practitioner-suggestion__actions">
-                        <a href="${member.contact.rosaLink}" target="_blank" class="button button--small"><i class="fa-solid fa-calendar-check"></i></a>
-                        <a href="tel:${member.contact.phone}" class="button button--small outline-secondary"><i class="fa-solid fa-phone"></i></a>
-                        <a href="${member.contact.rosaLink}" target="_blank" class="button button--small button--rosa">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="currentColor" class="rosa-icon">
-                                <path d="M62.91,90.67h0l-13.32-29.43c-3.54-7.77-1.94-16.03,4.44-21.1h0c1.67-1.32,2.5-2.5,2.91-4.23.49-1.94.56-4.65.49-9.16-.07-5.55-4.44-9.79-9.92-9.79s-9.92,4.37-9.92,9.72v61.91c0,3.05-2.5,5.41-5.48,5.41s-5.48-2.43-5.48-5.41V26.54c-.14-11.38,9.3-20.54,20.82-20.54s20.82,9.02,20.96,20.54c.07,4.51.07,8.61-.9,12.21-.97,3.75-2.98,6.94-6.59,9.85h0c-.42.35-1.32,1.18-1.8,2.5-.49,1.25-.69,3.12.49,5.83l13.32,29.43c1.25,2.78,0,5.97-2.85,7.15h0c-.69.28-1.39.42-2.15.42-2.08-.07-4.09-1.25-5-3.26h0Z"/>
-                            </svg>
-                        </a>
-                    </div>
+                    ${actionsHTML}
                 </div>`;
         });
         content += `</div>`;
@@ -485,16 +494,21 @@ function initComponents() {
 
         // Event delegation for dynamic content
         bookingModalContent.addEventListener('click', (e) => {
-            e.preventDefault();
             const target = e.target.closest('a');
             if (!target) return;
 
-            if (target.matches('.modal__option')) {
-                const specialty = target.dataset.specialty;
-                renderPractitioners(specialty);
-            } else if (target.id === 'back-to-specialties' || target.id === 'back-to-specialties-step') {
-                renderSpecialties();
+            // Empêcher le comportement par défaut UNIQUEMENT pour les liens de navigation
+            if (target.matches('.modal__option') || target.id === 'back-to-specialties' || target.id === 'back-to-specialties-step') {
+                e.preventDefault();
+                
+                if (target.matches('.modal__option')) {
+                    const specialty = target.dataset.specialty;
+                    renderPractitioners(specialty);
+                } else if (target.id === 'back-to-specialties' || target.id === 'back-to-specialties-step') {
+                    renderSpecialties();
+                }
             }
+            // Les autres liens (tel:, mailto:, WhatsApp, Rosa.be) fonctionnent normalement
         });
     }
     
