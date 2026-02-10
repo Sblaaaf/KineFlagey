@@ -135,7 +135,7 @@ const teamMembers = {
             
         }
     },
-    9: {
+    /* 9: {
         firstName: 'Anne-Sophie',
         lastName: 'Libert',
         specialties: ['Kiné Générale'],
@@ -148,5 +148,5 @@ const teamMembers = {
             rosaLink: 'https://rosa.be/fr/hp/anne-sophie-libert',
             
         }
-    }
+    } */
 };

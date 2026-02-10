@@ -87,8 +87,8 @@
     aspect-ratio: 16 / 9;
   }
 
-  .service-details__footer {
-    align-items: flex-start;
+  .service-details__actions {
+    align-items: center;
   }
 
   .service-details__nav {
@@ -98,6 +98,10 @@
     left: 0;
     justify-content: center;
   }
+
+  /* .practitionners__list {
+    justify-content: center;
+  } */
 
   .techniques-tabs__container {
     grid-template-columns: 1fr 1fr;
@@ -327,6 +331,34 @@
     max-height: calc(100vh - 3rem);
     overflow-y: auto;
     padding: 2rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Assurer que le contenu de la modal peut scroller */
+  .modal__content > * {
+    flex-shrink: 0;
+  }
+
+  .practitioner-modal__header {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .practitioner-modal__header-info {
+    text-align: center;
+  }
+
+  .practitioner-modal__header-info h3 {
+    text-align: center;
+  }
+
+  .practitioner-modal__meta {
+    justify-content: center;
+    align-items: center;
   }
 
   .practitioner-modal__photo {
@@ -336,6 +368,15 @@
 
   .practitioner-modal__description {
     font-size: .95rem;
+  }
+
+  .practitioner-modal__actions {
+    flex-direction: column;
+    gap: .5rem;
+  }
+
+  .practitioner-modal__actions .button {
+    width: 100%;
   }
 
   /* Bouton "Prendre rendez-vous" uniquement dans le menu burger sur mobile */

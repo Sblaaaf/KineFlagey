@@ -1,5 +1,86 @@
 // Fichier: js/components.js
 function initComponents() {
+    /*=============== GENERATION DYNAMIQUE DES LISTES DE PRATICIENS DANS LES SERVICES ===============*/
+    const generatePractitionersList = () => {
+        // Mappages de spécialités et techniques pour les sections de services
+        const serviceMapping = {
+            'generale': {
+                type: 'specialty',
+                values: ['Kiné Générale', 'Kinésithérapie Générale']
+            },
+            'sportive': {
+                type: 'specialty',
+                values: ['Kiné Sportive', 'Kinésithérapie Sportive']
+            },
+            'osteopathie': {
+                type: 'specialty',
+                values: ['Ostéopathie D.O.']
+            },
+            'perinatale': {
+                type: 'specialty',
+                values: ['Kiné Périnatale', 'Kinésithérapie périnatale']
+            },
+            'perineale': {
+                type: 'specialty',
+                values: ['Kiné Pelvi-périnéale', 'Rééducation pelvi-périnéale', 'Rééducation Abdomino-pelvienne']
+            },
+            'atm': {
+                type: 'technique',
+                values: ['ATM']
+            },
+            'orthopedie': {
+                type: 'specialty',
+                values: ['Orthopédie', 'Orthopédie & Traumatologie', 'Thérapie manuelle orthopédique']
+            },
+            'viscerale': {
+                type: 'specialty',
+                values: ['Kiné Viscérale', 'Kinésithérapie viscérale']
+            }
+        };
+
+        // Parcourir chaque section de service
+        Object.entries(serviceMapping).forEach(([service, config]) => {
+            const serviceContainer = document.querySelector(`.service-details__container[data-service="${service}"]`);
+            if (!serviceContainer) return;
+
+            const practitionersList = serviceContainer.querySelector('.practitioners__list');
+            if (!practitionersList) return;
+
+            // Vider la liste actuelle
+            practitionersList.innerHTML = '';
+
+            // Trouver tous les praticiens correspondants
+            const matchingPractitioners = [];
+            Object.entries(teamMembers).forEach(([id, member]) => {
+                let hasMatch = false;
+
+                if (config.type === 'specialty') {
+                    hasMatch = member.specialties && member.specialties.some(specialty =>
+                        config.values.some(val => val.toLowerCase() === specialty.toLowerCase())
+                    );
+                } else if (config.type === 'technique') {
+                    hasMatch = member.techniques && member.techniques.some(technique =>
+                        config.values.some(val => val.toLowerCase() === technique.toLowerCase())
+                    );
+                }
+
+                if (hasMatch) {
+                    matchingPractitioners.push({ id, member });
+                }
+            });
+
+            // Générer les éléments HTML
+            matchingPractitioners.forEach(({ id, member }) => {
+                const link = document.createElement('a');
+                link.href = '#';
+                link.classList.add('team__card--link');
+                link.setAttribute('data-member-id', id);
+                link.innerHTML = `<img src="${member.photo}" alt="${member.firstName} ${member.lastName}" class="team__img-mini">`;
+                practitionersList.appendChild(link);
+            });
+        });
+    };
+
     /*=============== GESTION DES MODALS (POPUPS) ===============*/
     const bookingModal = document.getElementById('booking-modal');
     const openBookingModalBtns = document.querySelectorAll('.open-booking-modal');
@@ -22,8 +103,11 @@ function initComponents() {
     });
 
     /*=============== FILTRAGE DE L'ÉQUIPE & MODAL DÉTAILS ===============*/
+    // Générer les listes de praticiens dans les services
+    generatePractitionersList();
+
     const teamCards = document.querySelectorAll('.team__card');
-    const practitionerLinks = document.querySelectorAll('.team__card--link');
+    let practitionerLinks = document.querySelectorAll('.team__card--link');
     const teamModal = document.getElementById('team-modal');
     const teamModalContent = document.getElementById('team-modal-content');
     const modalPrevBtn = document.getElementById('modal-prev');
@@ -123,6 +207,9 @@ function initComponents() {
             });
         });
 
+        // Re-requêter les liens des praticiens après génération dynamique
+        practitionerLinks = document.querySelectorAll('.team__card--link');
+        
         // Ajout pour les liens des praticiens dans la section services
         practitionerLinks.forEach(link => {
             link.addEventListener('click', (e) => {
@@ -152,6 +239,36 @@ function initComponents() {
             });
         });
 
+        // Mappages de normalisation pour les spécialités et techniques
+        const specialtyMapping = {
+            'kine-generale': ['Kiné Générale', 'Kinésithérapie Générale', 'Kiné générale'],
+            'kine-sportive': ['Kiné Sportive', 'Kinésithérapie Sportive'],
+            'osteopathie-do': ['Ostéopathie D.O.'],
+            'kine-perinatale': ['Kiné Périnatale', 'Kinésithérapie périnatale', 'Kinésithérapie pré/post-natale'],
+            'kine-pelvi-perineale': ['Kiné Pelvi-périnéale', 'Rééducation pelvi-périnéale', 'Rééducation Pelvi-périnéale', 'Rééducation Abdomino-pelvienne'],
+            'orthopedie': ['Orthopédie', 'Orthopédie & Traumatologie', 'Thérapie manuelle orthopédique', 'Pré/post-opératoire', 'Thérapie maxillo-faciale'],
+            'kine-viscerale': ['Kiné Viscérale', 'Kinésithérapie viscérale', 'Kinésithérapie viscerale', 'Rééducation abdominale']
+        };
+
+        const techniqueMapping = {
+            'therapie-manuelle': ['Thérapie manuelle', 'Thérapie manuelle orthopédique', 'Gestion de la douleur', 'Gestion de douleur'],
+            'dry-needling': ['Dry Needling'],
+            'analyse-course': ['Analyse de la course', 'Clinique du coureur', 'Prévention des blessures du coureur'],
+            'ondes-choc': ['Ondes de choc'],
+            'methode-mckenzie': ['Méthode McKenzie'],
+            'myofasciale': ['Myofasciale', 'Techniques myofasciales', 'Techniques myo-faciales', 'Crochetage', 'Thérapie maxilo-fasciale', 'Thérapie maxillo-faciale'],
+            'biofeedback': ['Biofeedback'],
+            'neurodynamique': ['Neurodynamique', 'Mobilisations neurodynamiques'],
+            'atm': ['ATM'],
+            'pilates': ['Pilates', 'Renforcement musculaire', 'Renforcement musculaire ciblé'],
+            'nutritherapie': ['Nutrithérapie']
+        };
+
+        // Fonction pour vérifier si une valeur correspond à un filtre
+        const matchesFilter = (value, mapping) => {
+            return mapping.some(item => item.toLowerCase() === value.toLowerCase());
+        };
+
         // Gère le clic sur les boutons de filtre et le filtrage des cartes
         filterButtons.forEach(button => {
             button.addEventListener('click', () => {
@@ -162,26 +279,37 @@ function initComponents() {
                 }
                 button.classList.add('active');
 
-                // 2. Filtrer les cartes
-                const filter = button.dataset.filter;
-                const filterGroup = button.dataset.group; // 'specialty' ou 'technique'
+                // 2. Filtrer les cartes en fonction des données de data.js
                 let visibleCount = 0;
                 
                 teamCards.forEach(card => {
+                    const memberId = card.dataset.memberId;
+                    const member = teamMembers[memberId];
+                    
+                    if (!member) return;
+                    
                     let isVisible = true;
                     
                     // Vérifier le filtre de spécialité
                     const specialtyFilter = document.querySelector('.team__filters[data-tab-content="specialty"] .team__filter.active');
                     if (specialtyFilter && specialtyFilter.dataset.filter !== 'all') {
-                        const cardSpecialties = card.dataset.specialty.split(' ');
-                        isVisible = isVisible && cardSpecialties.includes(specialtyFilter.dataset.filter);
+                        const filterKey = specialtyFilter.dataset.filter;
+                        const expectedValues = specialtyMapping[filterKey] || [];
+                        const hasMatch = member.specialties.some(specialty => 
+                            expectedValues.some(expected => expected.toLowerCase() === specialty.toLowerCase())
+                        );
+                        isVisible = isVisible && hasMatch;
                     }
                     
                     // Vérifier le filtre de technique
                     const techniqueFilter = document.querySelector('.team__filters[data-tab-content="technique"] .team__filter.active');
                     if (techniqueFilter && techniqueFilter.dataset.filter !== 'all') {
-                        const cardTechniques = card.dataset.technique.split(' ').filter(t => t !== '');
-                        isVisible = isVisible && cardTechniques.includes(techniqueFilter.dataset.filter);
+                        const filterKey = techniqueFilter.dataset.filter;
+                        const expectedValues = techniqueMapping[filterKey] || [];
+                        const hasMatch = member.techniques.some(technique => 
+                            expectedValues.some(expected => expected.toLowerCase() === technique.toLowerCase())
+                        );
+                        isVisible = isVisible && hasMatch;
                     }
                     
                     card.style.display = isVisible ? 'block' : 'none';
@@ -231,21 +359,59 @@ function initComponents() {
 
     const bookingModalContent = document.querySelector('#booking-modal .modal__content');
 
-    // Map pour lier les spécialités aux icônes et aux ancres de la page
-    const specialtyDetails = {
-        'Kinésithérapie Générale': { icon: 'generale', anchor: '#services' },
-        'Kinésithérapie Sportive': { icon: 'sport', anchor: '#service-kine-sportive' },
-        'Ostéopathie D.O.': { icon: 'osteo', anchor: '#osteopathie' },
-        'Uro-gynécologie': { icon: 'perinatale', anchor: '#service-perineale' },
-        'périnéale': { icon: 'perinatale', anchor: '#service-perineale' },
-        'ATM': { icon: 'atm', anchor: '#service-maxillo-faciale' },
-        'Thérapie manuelle': { icon: 'generale', anchor: '#techniques' },
-        'Analyse de la course': { icon: 'sport', anchor: '#techniques' },
-        // Ajoutez d'autres mappages si nécessaire
-    };
-
     const renderSpecialties = () => {
-        const allSpecialties = [...new Set(Object.values(teamMembers).flatMap(m => m.specialties || []))];
+        // Définir les spécialités autorisées à partir du specialtyMapping des filtres
+        const specialtyMapping = {
+            'kine-generale': ['Kiné Générale', 'Kinésithérapie Générale', 'Kiné générale'],
+            'kine-sportive': ['Kiné Sportive', 'Kinésithérapie Sportive'],
+            'osteopathie-do': ['Ostéopathie D.O.'],
+            'kine-perinatale': ['Kiné Périnatale', 'Kinésithérapie périnatale', 'Kinésithérapie pré/post-natale'],
+            'kine-pelvi-perineale': ['Kiné Pelvi-périnéale', 'Rééducation pelvi-périnéale', 'Rééducation Pelvi-périnéale', 'Rééducation Abdomino-pelvienne'],
+            'orthopedie': ['Orthopédie', 'Orthopédie & Traumatologie', 'Thérapie manuelle orthopédique', 'Pré/post-opératoire', 'Thérapie maxillo-faciale'],
+            'kine-viscerale': ['Kiné Viscérale', 'Kinésithérapie viscérale', 'Kinésithérapie viscerale', 'Rééducation abdominale']
+        };
+
+        // Extraire toutes les valeurs autorisées à partir du mapping
+        const allowedSpecialties = Object.values(specialtyMapping).flat();
+
+        // Fonction pour vérifier si une valeur correspond à une spécialité autorisée
+        const isAllowedSpecialty = (value) => {
+            return allowedSpecialties.some(allowed => allowed.toLowerCase() === value.toLowerCase());
+        };
+
+        // Récupérer uniquement les spécialités autorisées de tous les praticiens
+        const allSpecialties = [...new Set(
+            Object.values(teamMembers)
+                .flatMap(m => m.specialties || [])
+                .filter(specialty => isAllowedSpecialty(specialty))
+        )];
+
+        // Map pour lier les spécialités aux icônes et aux ancres de la page
+        const specialtyDetails = {
+            'Kinésithérapie Générale': { icon: 'generale', anchor: '#services' },
+            'Kiné Générale': { icon: 'generale', anchor: '#services' },
+            'Kiné générale': { icon: 'generale', anchor: '#services' },
+            'Kinésithérapie Sportive': { icon: 'sport', anchor: '#service-kine-sportive' },
+            'Kiné Sportive': { icon: 'sport', anchor: '#service-kine-sportive' },
+            'Ostéopathie D.O.': { icon: 'osteo', anchor: '#osteopathie' },
+            'Kiné Périnatale': { icon: 'perinatale', anchor: '#service-perinatale' },
+            'Kinésithérapie périnatale': { icon: 'perinatale', anchor: '#service-perinatale' },
+            'Kinésithérapie pré/post-natale': { icon: 'perinatale', anchor: '#service-perinatale' },
+            'Kiné Pelvi-périnéale': { icon: 'perineale', anchor: '#service-perineale' },
+            'Rééducation pelvi-périnéale': { icon: 'perineale', anchor: '#service-perineale' },
+            'Rééducation Pelvi-périnéale': { icon: 'perineale', anchor: '#service-perineale' },
+            'Orthopédie': { icon: 'orthopedie', anchor: '#service-orthopedie' },
+            'Orthopédie & Traumatologie': { icon: 'orthopedie', anchor: '#service-orthopedie' },
+            'Thérapie manuelle orthopédique': { icon: 'orthopedie', anchor: '#service-orthopedie' },
+            'Pré/post-opératoire': { icon: 'orthopedie', anchor: '#service-orthopedie' },
+            'Thérapie maxillo-faciale': { icon: 'orthopedie', anchor: '#service-orthopedie' },
+            'Kiné Viscérale': { icon: 'viscerale', anchor: '#service-viscerale' },
+            'Kinésithérapie viscérale': { icon: 'viscerale', anchor: '#service-viscerale' },
+            'Kinésithérapie viscerale': { icon: 'viscerale', anchor: '#service-viscerale' },
+            'Rééducation abdominale': { icon: 'viscerale', anchor: '#service-viscerale' },
+            'Rééducation Abdomino-pelvienne': { icon: 'viscerale', anchor: '#service-viscerale' }
+        };
+
         let content = `
             <div class="modal__header-steps">
                 <span class="modal__step active" data-step="1">Spécialité</span>

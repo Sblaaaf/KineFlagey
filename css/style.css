@@ -432,7 +432,7 @@ img {
 
 @media screen and (max-width: 930px) {
     .services-tabs__container {
-        width: 40rem;
+        max-width: 40rem;
         grid-template-columns: repeat(4, 1fr);
     }
 }
@@ -560,12 +560,12 @@ img {
 }
 
 .service-details__practitioners h4 { font-size: 1rem; color: var(--gray);  }
-.practitioners__list { display: flex; flex-wrap: wrap; gap: .5rem; }
+.practitioners__list { display: flex; flex-wrap: wrap; gap: .3rem; }
 .practitioners__list .team__img-mini {
     border-radius: 50%;
-    margin: .5rem auto;
-    width: 40px;
-    height: 40px;
+    margin: .5rem auto 0 auto;
+    width: 35px;
+    height: 35px;
     border-width: 2px;
     border: 1px solid var(--accent);
 }
@@ -659,7 +659,7 @@ img {
     transform: translateY(-5px);
 
     img {
-        background-color: #ffcaa3 /* var(--primary) */;
+        background-color: /* #ffcaa3  */var(--primary);
         box-shadow: 0 8px 20px rgba(103, 52, 4, 0.2);
         border-radius: 3rem;
     }
