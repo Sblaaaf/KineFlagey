@@ -430,6 +430,13 @@ img {
     gap: .5rem;
 }
 
+@media screen and (max-width: 930px) {
+    .services-tabs__container {
+        width: 40rem;
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
 .service-tab__card {
   padding: 1.25rem 1rem;
   border-radius: .5rem;

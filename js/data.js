@@ -13,7 +13,7 @@ const teamMembers = {
         contact: {
             email: 'gillespiraux@gmail.com', 
             phone: '0478 62 93 21',
-            rosaLink: 'https://rosa.be/fr/s/gilles-piraux'
+            rosaLink: 'https://rosa.be/fr/hp/gilles-piraux'
         }
     },
     2: {
@@ -29,7 +29,7 @@ const teamMembers = {
         contact: {
             email: 'maria.kalala.beltran@gmail.com',
             phone: '0491 17 78 41',
-            rosaLink: 'https://rosa.be/fr/s/maria-kalala-beltran'
+            rosaLink: 'https://rosa.be/fr/hp/maria-kalala-beltran'
         }
     },
     3: {
@@ -45,7 +45,7 @@ const teamMembers = {
         contact: {
             email: 'o.vanroy@kineflagey.be',
             phone: '0479 75 59 82',
-            rosaLink: 'https://rosa.be/fr/s/olivier-vanroy'
+            rosaLink: 'https://rosa.be/fr/hp/olivier-vanroy'
         }
     },
     4: {
@@ -61,7 +61,7 @@ const teamMembers = {
         contact: {
             email: 'f.garo@kineflagey.be',
             phone: '0472 91 55 42',
-            rosaLink: 'https://rosa.be/fr/s/fanny-garo'
+            rosaLink: 'https://rosa.be/fr/hp/fanny-garo'
         }
     },
     5: {
@@ -76,7 +76,7 @@ const teamMembers = {
         description: 'Prise en charge globale et centrée sur la rééducation active pour un retour rapide et durable à vos activités. Simon vous accompagne dans la gestion de vos douleurs et l\'optimisation de vos performances.',
         contact: {
             email: 'Simon.leclef@gmail.com',
-            phone: '0474716163',
+            phone: '0474 71 61 63',
             rosaLink: 'https://rosa.be/fr/hp/simon-le-clef/'
         }
     },
@@ -93,7 +93,7 @@ const teamMembers = {
         contact: {
             email: 'math.escoyez@gmail.com',
             phone: '0488 63 18 84',
-            rosaLink: 'https://rosa.be/fr/s/mathilde-escoyez'
+            rosaLink: 'https://rosa.be/fr/hp/mathilde-escoyez'
         }
     },
     7: {
@@ -109,7 +109,7 @@ const teamMembers = {
         contact: {
             email: 'Thomas.bastard.physio@gmail.com',
             phone: '0486 47 29 87',
-            rosaLink: 'https://rosa.be/fr/s/thomas-bastard'
+            rosaLink: 'https://rosa.be/fr/hp/thomas-bastard'
         }
     },
     8: {
@@ -125,7 +125,7 @@ const teamMembers = {
         contact: {
             email: 'mi.koninckx@kineflagey.be',
             phone: '0470 78 61 44',
-            rosaLink: 'https://rosa.be/fr/s/marie-ines-koninckx'
+            rosaLink: 'https://rosa.be/fr/hp/marie-ines-koninckx'
         }
     },
     9: {
@@ -137,7 +137,7 @@ const teamMembers = {
         contact: {
             email: 'as.libert@kineflagey.be',
             phone: '0478 90 12 34',
-            rosaLink: 'https://rosa.be/fr/s/anne-sophie-libert'
+            rosaLink: 'https://rosa.be/fr/hp/anne-sophie-libert'
         }
     }
 };
