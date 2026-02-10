@@ -81,10 +81,10 @@ function initComponents() {
                         <h4 class="practitioner-modal__section-title">Contacts</h4>
                         <div class="practitioner-modal__actions">
                             ${memberData.contact.phone ? `<a href="tel:${memberData.contact.phone}" class="button outline-secondary"><i class="fa-solid fa-phone"></i> ${memberData.contact.phone}</a>` : ''}
-                            <a href="${memberData.contact.rosaLink}" target="_blank" class="button button--rosa">Rosa.be <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-                            <a href="${memberData.contact.rosaLink}" target="_blank" class="button"><i class="fa-solid fa-calendar-check"></i> Prendre rendez-vous</a>
+                            ${memberData.contact.email ? `<a href="mailto:${memberData.contact.email}" class="button outline-primary"><i class="fa-solid fa-envelope"></i> Email</a>` : ''}
+                            ${memberData.contact.phone ? `<a href="https://wa.me/${memberData.contact.phone.replace(/[^0-9]/g, '')}" target="_blank" class="button whatsapp"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>` : ''}
+                            ${memberData.contact.rosaLink ? `<a href="${memberData.contact.rosaLink}" target="_blank" class="button button--rosa">Rosa.be <i class="fa-solid fa-arrow-up-right-from-square"></i></a>` : ''}
                         </div>
-                    </div>
                 </div>
 
             `;

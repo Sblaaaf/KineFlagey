@@ -2036,6 +2036,14 @@ option[value=""][disabled] {
     background-color: #9e1154;
 }
 
+.whatsapp {
+    background-color: #25D366;
+}
+
+.whatsapp:hover {
+    background-color: #1FA855;
+}
+
 .other-services-swiper {
     padding-bottom: 3rem; /* Espace pour la pagination */
 }
