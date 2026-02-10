@@ -164,10 +164,26 @@ function initComponents() {
 
                 // 2. Filtrer les cartes
                 const filter = button.dataset.filter;
+                const filterGroup = button.dataset.group; // 'specialty' ou 'technique'
                 let visibleCount = 0;
+                
                 teamCards.forEach(card => {
-                    const specialties = card.dataset.specialty;
-                    const isVisible = (filter === 'all' || specialties.includes(filter));
+                    let isVisible = true;
+                    
+                    // Vérifier le filtre de spécialité
+                    const specialtyFilter = document.querySelector('.team__filters[data-tab-content="specialty"] .team__filter.active');
+                    if (specialtyFilter && specialtyFilter.dataset.filter !== 'all') {
+                        const cardSpecialties = card.dataset.specialty.split(' ');
+                        isVisible = isVisible && cardSpecialties.includes(specialtyFilter.dataset.filter);
+                    }
+                    
+                    // Vérifier le filtre de technique
+                    const techniqueFilter = document.querySelector('.team__filters[data-tab-content="technique"] .team__filter.active');
+                    if (techniqueFilter && techniqueFilter.dataset.filter !== 'all') {
+                        const cardTechniques = card.dataset.technique.split(' ').filter(t => t !== '');
+                        isVisible = isVisible && cardTechniques.includes(techniqueFilter.dataset.filter);
+                    }
+                    
                     card.style.display = isVisible ? 'block' : 'none';
                     if (isVisible) {
                         visibleCount++;

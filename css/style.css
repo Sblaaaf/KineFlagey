@@ -659,7 +659,7 @@ img {
     transform: translateY(-5px);
 
     img {
-        background-color: var(--primary);
+        background-color: #ffcaa3 /* var(--primary) */;
         box-shadow: 0 8px 20px rgba(103, 52, 4, 0.2);
         border-radius: 3rem;
     }
