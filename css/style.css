@@ -1970,6 +1970,9 @@ option[value=""][disabled] {
 .practitioner-modal__section {
     margin-bottom: 1.5rem;
 }
+.practitioner-modal__description {
+    font-size: 1rem;
+}
 
 .practitioner-modal__section-title {
     display: flex;

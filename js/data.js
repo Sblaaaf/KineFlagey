@@ -29,39 +29,39 @@ const teamMembers = {
         contact: {
             email: 'maria.kalala.beltran@gmail.com',
             phone: '0491 17 78 41',
-            rosaLink: 'https://rosa.be/fr/hp/maria-kalala-beltran'
+            /* rosaLink: 'https://rosa.be/fr/hp/maria-kalala-beltran' */
         }
     },
     3: {
         firstName: 'Olivier',
-        lastName: 'Van Roy',
+        lastName: 'VAN ROY',
         inami: '54859438527',
         convention: 'Entièrement conventionné',
-        languages: ['Français', 'Anglais'],
-        specialties: ['Kinésithérapie Générale', 'Kinésithérapie Sportive', 'Orthopédie & traumatologie', 'Neurologique', 'Pré/post-opératoire'],
-        techniques: ['Thérapie manuelle', 'Méthode McKenzie', 'Neurodynamique', 'Clinique du coureur', 'Analyse de la course'],
+        languages: ['Français', 'Anglais', 'Néerlandais'],
+        specialties: ['Kinésithérapie Générale', 'Kinésithérapie Sportive', 'Orthopédie & Traumatologie', 'Pré/post-opératoire', 'Céphalées', 'Rhumatologie', 'Reconditionnement physique'],
+        techniques: ['Thérapie manuelle orthopédique', 'Crochetage', 'Ondes de choc', 'Neurodynamique', 'Méthode McKenzie', 'Prévention des blessures du coureur'],
         photo: '/assets/blob/OLIVIER_mini.png',
-        description: 'Prise en charge globale et centrée sur la rééducation active ; rééducation post-natale et prévention.',
+        description: 'A l\'écoute et bienveillant, Olivier vous accompagne dans la gestion de vos douleurs et l\'optimisation de votre pratique sportive. Par une prise en charge individualisée, il vous aide à mieux comprendre votre corps et à vous rendre acteur de votre rééducation afin de prévenir durablement tout risque de récidive.',
         contact: {
-            email: 'o.vanroy@kineflagey.be',
+            email: 'kine.vanroy@gmail.com', 
             phone: '0479 75 59 82',
-            rosaLink: 'https://rosa.be/fr/hp/olivier-vanroy'
+            rosaLink: 'https://rosa.be/fr/hp/olivier-van-roy/'
         }
     },
     4: {
         firstName: 'Fanny',
         lastName: 'Garo',
-        inami: '54159652527',
+        inami: '54499944527',
         convention: 'Entièrement conventionné',
         languages: ['Français', 'Anglais'],
-        specialties: ['Kinésithérapie Générale', 'Pré/post-natale'],
-        techniques: ['Méthode McKenzie', 'ATM', 'Pilates', 'Nutrithérapie', 'Viscéral'],
+        specialties: ['Kinésithérapie viscérale', 'Rééducation abdominale', 'Kinésithérapie périnatale', 'Thérapie maxilo-fasciale'],
+        techniques: ['Crochetage', 'Renforcement musculaire', 'Techniques myo-faciales'],
         photo: '/assets/blob/FANNY_mini.png',
-        description: 'Fanny est spécialisée dans la santé de la femme et la rééducation périnéale.',
+        description: 'Fanny vous propose une approche globale. Son sens de l’empathie fait d’elle une thérapeute profondément humaine à qui il tient à coeur de proposer une écoute attentive. Entre-autres, voici certains de ses domaines de prédilection: le travail viscéral, la traumatologie, le suivi en période de grossesse et la rééducation abdominale en post-partum…',
         contact: {
-            email: 'f.garo@kineflagey.be',
+            email: 'kine.garo.fanny@gmail.com',
             phone: '0472 91 55 42',
-            rosaLink: 'https://rosa.be/fr/hp/fanny-garo'
+            /* rosaLink: 'https://rosa.be/fr/hp/fanny-garo/' */
         }
     },
     5: {
@@ -109,7 +109,7 @@ const teamMembers = {
         contact: {
             email: 'Thomas.bastard.physio@gmail.com',
             phone: '0486 47 29 87',
-            rosaLink: 'https://rosa.be/fr/hp/thomas-bastard'
+            /* rosaLink: 'https://rosa.be/fr/hp/thomas-bastard' */
         }
     },
     8: {
