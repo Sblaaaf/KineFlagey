@@ -92,8 +92,8 @@
   }
 
   .service-details__nav {
-    position: sticky;
-    bottom: 1rem;
+    /* position: sticky; */
+    bottom: -1.4rem;
     right: 0;
     left: 0;
     justify-content: center;
@@ -113,8 +113,14 @@
   }
 
   .technique-tab__icon {
-    width: 3rem;
-    height: 3rem;
+    width: 4rem;
+    height: 4rem;
+  }
+  .shockwave {
+    width: 5rem;
+    height: 5rem;
+    margin-bottom: 0;
+    padding-bottom: 0;
   }
 
   .techniques__wrapper {
@@ -174,6 +180,7 @@
 
   .complementary__item {
     width: 100%;
+    min-width: none;
     transition: all .4s ease-out;
   }
 
@@ -232,6 +239,10 @@
   .contact__map-container {
     margin-top: 2rem;
   }
+
+  .contact__content p {
+    text-align: left;
+}
 
   /* Header : éléments spécifiques mobile */
   .nav__logo--mini,
@@ -330,14 +341,27 @@
     margin: 1.5rem 1rem;
     max-height: calc(100vh - 3rem);
     overflow-y: auto;
-    padding: 2rem;
+    padding: 2rem 1rem;
     display: flex;
     flex-direction: column;
   }
 
+  #booking-modal .modal__content {
+    height: auto;
+    width: auto;
+    max-width: 600px;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
   /* Assurer que le contenu de la modal peut scroller */
   .modal__content > * {
     flex-shrink: 0;
+  }
+
+  .practitioner-modal__body {
+    margin-bottom: 0;
   }
 
   .practitioner-modal__header {

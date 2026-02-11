@@ -1436,6 +1436,15 @@ option[value=""][disabled] {
     stroke: var(--accent);
     fill: var(--accent);
 }
+
+.shockwave {
+    width: 6rem;
+    height: 6rem;
+    margin-bottom: .5rem;
+    color: var(--accent);
+    stroke: none;
+    fill: var(--accent);
+}
 .technique-tab__title { font-size: 1.1rem; font-weight: 500; }
 
 /* Styles pour le contenu des techniques */
