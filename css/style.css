@@ -1054,10 +1054,18 @@ img {
     color: var(--white);
     cursor: pointer;
     z-index: 1000;
-    display: none; /* Caché par défaut */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
 }
+
 .modal__nav--prev { left: 1rem; }
 .modal__nav--next { right: 1rem; }
+
+.modal__nav:hover {
+    transform: translateY(-50%) scale(1.1);
+}
 
 
 /*=============== CONTACT ===============*/
