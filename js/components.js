@@ -225,6 +225,14 @@ function initComponents() {
         const filterButtons = document.querySelectorAll('.team__filter');
         const noResultsMessage = document.querySelector('.team__no-results');
 
+        // Fonction pour afficher tous les praticiens
+        const showAllPractitioners = () => {
+            teamCards.forEach(card => {
+                card.style.display = 'block';
+            });
+            noResultsMessage.style.display = 'none';
+        };
+
         // Gère le clic sur les onglets (Spécialité / Technique)
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
@@ -236,6 +244,22 @@ function initComponents() {
                 filtersContents.forEach(content => {
                     content.classList.toggle('active', content.dataset.tabContent === targetTab);
                 });
+
+                // Réinitialiser les filtres à "Tous" quand on change d'onglet
+                const newActiveGroup = document.querySelector('.team__filters[data-tab-content="' + targetTab + '"]');
+                if (newActiveGroup) {
+                    // Désactiver tous les boutons
+                    newActiveGroup.querySelectorAll('.team__filter').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    // Activer le bouton "Tous"
+                    const allButton = newActiveGroup.querySelector('.team__filter[data-filter="all"]');
+                    if (allButton) {
+                        allButton.classList.add('active');
+                    }
+                    // Afficher tous les praticiens
+                    showAllPractitioners();
+                }
             });
         });
 
@@ -282,6 +306,10 @@ function initComponents() {
                 // 2. Filtrer les cartes en fonction des données de data.js
                 let visibleCount = 0;
                 
+                // Déterminer quel onglet est actif
+                const activeTab = document.querySelector('.team__tab.active');
+                const activeTabName = activeTab ? activeTab.dataset.tab : 'specialty';
+                
                 teamCards.forEach(card => {
                     const memberId = card.dataset.memberId;
                     const member = teamMembers[memberId];
@@ -290,26 +318,27 @@ function initComponents() {
                     
                     let isVisible = true;
                     
-                    // Vérifier le filtre de spécialité
-                    const specialtyFilter = document.querySelector('.team__filters[data-tab-content="specialty"] .team__filter.active');
-                    if (specialtyFilter && specialtyFilter.dataset.filter !== 'all') {
-                        const filterKey = specialtyFilter.dataset.filter;
-                        const expectedValues = specialtyMapping[filterKey] || [];
-                        const hasMatch = member.specialties.some(specialty => 
-                            expectedValues.some(expected => expected.toLowerCase() === specialty.toLowerCase())
-                        );
-                        isVisible = isVisible && hasMatch;
-                    }
-                    
-                    // Vérifier le filtre de technique
-                    const techniqueFilter = document.querySelector('.team__filters[data-tab-content="technique"] .team__filter.active');
-                    if (techniqueFilter && techniqueFilter.dataset.filter !== 'all') {
-                        const filterKey = techniqueFilter.dataset.filter;
-                        const expectedValues = techniqueMapping[filterKey] || [];
-                        const hasMatch = member.techniques.some(technique => 
-                            expectedValues.some(expected => expected.toLowerCase() === technique.toLowerCase())
-                        );
-                        isVisible = isVisible && hasMatch;
+                    // Appliquer le filtre SEULEMENT de l'onglet actif
+                    if (activeTabName === 'specialty') {
+                        const specialtyFilter = document.querySelector('.team__filters[data-tab-content="specialty"] .team__filter.active');
+                        if (specialtyFilter && specialtyFilter.dataset.filter !== 'all') {
+                            const filterKey = specialtyFilter.dataset.filter;
+                            const expectedValues = specialtyMapping[filterKey] || [];
+                            const hasMatch = member.specialties.some(specialty => 
+                                expectedValues.some(expected => expected.toLowerCase() === specialty.toLowerCase())
+                            );
+                            isVisible = isVisible && hasMatch;
+                        }
+                    } else if (activeTabName === 'technique') {
+                        const techniqueFilter = document.querySelector('.team__filters[data-tab-content="technique"] .team__filter.active');
+                        if (techniqueFilter && techniqueFilter.dataset.filter !== 'all') {
+                            const filterKey = techniqueFilter.dataset.filter;
+                            const expectedValues = techniqueMapping[filterKey] || [];
+                            const hasMatch = member.techniques.some(technique => 
+                                expectedValues.some(expected => expected.toLowerCase() === technique.toLowerCase())
+                            );
+                            isVisible = isVisible && hasMatch;
+                        }
                     }
                     
                     card.style.display = isVisible ? 'block' : 'none';
