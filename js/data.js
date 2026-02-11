@@ -75,7 +75,7 @@ const teamMembers = {
         languages: ['Français', 'Anglais', 'Espagnol'],
         specialties: ['Kiné Générale', 'Kiné Sportive', 'Ostéopathie D.O.'],
         techniques: ['Thérapie manuelle', 'Dry Needling', 'Analyse de la course', 'Clinique du coureur'],
-        photo: '/assets/blob/Simon_mini.png',
+        photo: '/assets/blob/SIMON_mini.png',
         description: 'Prise en charge globale et centrée sur la rééducation active pour un retour rapide et durable à vos activités. Simon vous accompagne dans la gestion de vos douleurs et l\'optimisation de vos performances.',
         contact: {
             email: 'Simon.leclef@gmail.com',
