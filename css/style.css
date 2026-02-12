@@ -1616,12 +1616,18 @@ option[value=""][disabled] {
     }
 }
 
+.complementary__content-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+}
+
 .complementary__content-row {
     display: flex;
     flex-direction: row;
-    gap: 1rem;
-    align-items: center;
-    padding: 0 1rem;
+    gap: 2rem;
+    align-items: flex-start;
 }
 
 .complementary__content-text h4 {
