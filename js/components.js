@@ -274,6 +274,18 @@ function initComponents() {
             'kine-viscerale': ['Kiné Viscérale', 'Kinésithérapie viscérale', 'Kinésithérapie viscerale', 'Rééducation abdominale']
         };
 
+        // Whitelist des praticiens autorisés pour chaque filtre de spécialité
+        const specialtyFilters = {
+            'kine-generale': [1, 2, 8, 7, 6, 5], // Gilles, Maria, Marie, Thomas, Mathilde, Simon
+            'kine-sportive': [1, 8, 5], // Gilles, Marie, Simon
+            'orthopedie': [1, 8, 5], // Gilles, Marie, Simon (Ortho/Trauma)
+            'kine-perinatale': [2, 4, 6], // Maria, Fanny, Mathilde
+            'kine-pelvi-perineale': [6], // Mathilde (Fanny seulement en Périnatale)
+            'atm': [2, 4, 8], // Maria, Fanny, Marie
+            'osteopathie-do': [1, 5], // Gilles, Simon
+            'kine-viscerale': [4] // Fanny
+        };
+
         const techniqueMapping = {
             'therapie-manuelle': ['Thérapie manuelle', 'Thérapie manuelle orthopédique', 'Gestion de la douleur', 'Gestion de douleur'],
             'dry-needling': ['Dry Needling'],
@@ -323,11 +335,9 @@ function initComponents() {
                         const specialtyFilter = document.querySelector('.team__filters[data-tab-content="specialty"] .team__filter.active');
                         if (specialtyFilter && specialtyFilter.dataset.filter !== 'all') {
                             const filterKey = specialtyFilter.dataset.filter;
-                            const expectedValues = specialtyMapping[filterKey] || [];
-                            const hasMatch = member.specialties.some(specialty => 
-                                expectedValues.some(expected => expected.toLowerCase() === specialty.toLowerCase())
-                            );
-                            isVisible = isVisible && hasMatch;
+                            // Utiliser la whitelist des praticiens autorisés
+                            const allowedMembers = specialtyFilters[filterKey] || [];
+                            isVisible = allowedMembers.includes(parseInt(memberId));
                         }
                     } else if (activeTabName === 'technique') {
                         const techniqueFilter = document.querySelector('.team__filters[data-tab-content="technique"] .team__filter.active');
