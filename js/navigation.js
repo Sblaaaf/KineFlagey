@@ -16,6 +16,18 @@ function initNavigation() {
         });
     }
 
+    // Fermer le menu au clic en dehors de la sidebar
+    if (navMenu) {
+        document.addEventListener('click', (e) => {
+            // Ne fermer que si le menu est ouvert ET que le clic n'est pas sur le menu ou le bouton toggle
+            if (navMenu.classList.contains('show-menu') && 
+                !navMenu.contains(e.target) && 
+                !navToggle.contains(e.target)) {
+                navMenu.classList.remove('show-menu');
+            }
+        });
+    }
+
     /*=============== REMOVE MENU MOBILE ===============*/
     const navLinks = document.querySelectorAll('.nav__link');
     const linkAction = () => {
